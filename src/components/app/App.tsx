@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-  Header
+  Header,
+  Footer
 } from 'components'
 import './App.scss';
 
@@ -10,11 +11,12 @@ function App() {
       <Header/>
       
       <main style={{backgroundColor: "white"}} /* inline style only for testing */>
-        <article></article>
+        <article>
+          {/* Router navigator*/}  
+        </article> 
       </main>
 
-      <footer style={{backgroundColor: "black"}} /* inline style only for testing */>
-      </footer>
+      <Footer/>
     </div>
   );
 }

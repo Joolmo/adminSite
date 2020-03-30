@@ -5,21 +5,16 @@ import './App.scss';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div id="app">
+      <header style={{backgroundColor: "grey"}} /* inline style only for testing */>
       </header>
+
+      <main style={{backgroundColor: "white"}} /* inline style only for testing */>
+        <article></article>
+      </main>
+
+      <footer style={{backgroundColor: "black"}} /* inline style only for testing */>
+      </footer>
     </div>
   );
 }

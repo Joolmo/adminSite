@@ -3,24 +3,19 @@
 
 header {
     display: flex;
-    flex-flow: column nowrap;
-    
+    flex-flow: column nowrap;   
 
-    #mobileNavigationCheck {
-        display: none;
-    }
+    #mobileNavigationCheck { display: none; }
 
     #mobileHeader {
         display: flex;
         flex-flow: row nowrap;
         justify-content: space-between;
         padding: 0 20px 0 20px;
-        z-index: 10;
+        z-index: 10; // 1 level above nav (slide down effect)
         background-color: $third-color;
     
-        h1 {
-            color: $second-font-color;
-        }
+        h1 { color: $second-font-color; }
 
         label[for="mobileNavigationCheck"] {
             color: $second-font-color;
@@ -31,16 +26,15 @@ header {
     }
 
     input#mobileNavigationCheck {
-        &:not(:checked) + div + nav {
-            transform: translateY(-100%);
-        }
-        &:checked + div + nav {
-            transform: translateY(0);
-        }
+        // If the checkbox with the id "mobileNavigationCheck", triggered by a label,
+        // is checked it is possible to see the menu on the mobile version,
+        // otherwise it will be hidden.
+        &:not(:checked) + div + nav { transform: translateY(-100%); }
+        &:checked + div + nav { transform: translateY(0); }
     }
 
     nav {
-        width: 100%;
+        display: flex;
         background-color: $second-color;
         transition: transform .3s ease-in-out;
 
@@ -59,10 +53,9 @@ header {
                 padding: 15px;
                 margin: 5px auto 5px auto;
                 border-radius: 8px;
-                font-size: 17px;
-                font-weight: 400;
+                font-size: 18px;
+                font-weight: 500;
                 color: $second-font-color;
-                font-family: $global-font-family;
             }
 
             li:hover {
@@ -73,22 +66,21 @@ header {
     }
 }
 
-@media (min-width: 700px) {
+@media (min-width: $desktop-size) {
 
     header {
         background-color: $third-color;
+        justify-content: space-around;
 
-        #mobileHeader{
-            display: none;    
-        }
+        #mobileHeader { display: none; }
         
-        input#mobileNavigationCheck:not(:checked) + div + nav {
-            transform: translateY(0);
-        }
+        // Remove the slide effect of the mobile version
+        input#mobileNavigationCheck:not(:checked) + div + nav { transform: translateY(0); }
 
         nav {
+            height: 90%;
             background-color: $third-color;
-            transition: none;
+            transition: none; // Remove the slide effect of the mobile version
         }
     }
 }

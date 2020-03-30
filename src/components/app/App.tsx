@@ -10,10 +10,8 @@ function App() {
     <div id="app">
       <Header/>
       
-      <main style={{backgroundColor: "white"}} /* inline style only for testing */>
-        <article>
+      <main>
           {/* Router navigator*/}  
-        </article> 
       </main>
 
       <Footer/>

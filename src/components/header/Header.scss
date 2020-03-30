@@ -1,0 +1,94 @@
+@import 'styles/global-variables.scss';
+
+
+header {
+    display: flex;
+    flex-flow: column nowrap;
+    
+
+    #mobileNavigationCheck {
+        display: none;
+    }
+
+    #mobileHeader {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        padding: 0 20px 0 20px;
+        z-index: 10;
+        background-color: $third-color;
+    
+        h1 {
+            color: $second-font-color;
+        }
+
+        label[for="mobileNavigationCheck"] {
+            color: $second-font-color;
+            padding: 20;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+    }
+
+    input#mobileNavigationCheck {
+        &:not(:checked) + div + nav {
+            transform: translateY(-100%);
+        }
+        &:checked + div + nav {
+            transform: translateY(0);
+        }
+    }
+
+    nav {
+        width: 100%;
+        background-color: $second-color;
+        transition: transform .3s ease-in-out;
+
+        ul {
+            display: flex;
+            flex-flow: nowrap column;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+
+            li {
+                display: flex;
+                justify-content: center;
+                width: 80%;
+                padding: 15px;
+                margin: 5px auto 5px auto;
+                border-radius: 8px;
+                font-size: 17px;
+                font-weight: 400;
+                color: $second-font-color;
+                font-family: $global-font-family;
+            }
+
+            li:hover {
+                background-color: $main-color;
+                color: $main-font-color;
+            }
+        }
+    }
+}
+
+@media (min-width: 700px) {
+
+    header {
+        background-color: $third-color;
+
+        #mobileHeader{
+            display: none;    
+        }
+        
+        input#mobileNavigationCheck:not(:checked) + div + nav {
+            transform: translateY(0);
+        }
+
+        nav {
+            background-color: $third-color;
+            transition: none;
+        }
+    }
+}

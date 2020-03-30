@@ -1,13 +1,14 @@
 import React from 'react';
+import {
+  Header
+} from 'components'
 import './App.scss';
-
 
 function App() {
   return (
     <div id="app">
-      <header style={{backgroundColor: "grey"}} /* inline style only for testing */>
-      </header>
-
+      <Header/>
+      
       <main style={{backgroundColor: "white"}} /* inline style only for testing */>
         <article></article>
       </main>

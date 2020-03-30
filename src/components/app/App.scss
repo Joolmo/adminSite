@@ -1,10 +1,11 @@
 #app {
   display: grid;
-  grid-template-columns: 250px auto;
-  grid-template-rows: auto 65px;
+  grid-template-columns: auto;
+  grid-template-rows: 85px auto 65px;
   grid-template-areas:
-    "item-header item-main"
-    "item-header item-footer";
+    "item-header"
+    "item-main"
+    "item-footer";
 
   header {
     grid-area: item-header;
@@ -16,5 +17,15 @@
 
   footer {
     grid-area: item-footer;
+  }
+}
+
+@media (min-width: 700px) {
+  #app {
+    grid-template-columns: 250px auto;
+    grid-template-rows: auto 65px;
+    grid-template-areas:
+      "item-header item-main"
+      "item-header item-footer";
   }
 }

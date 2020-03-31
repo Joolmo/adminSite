@@ -1,0 +1,41 @@
+@import 'styles/global-variables.scss';
+
+
+#app {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 85px auto 65px;
+  grid-template-areas:
+    "item-header"
+    "item-main"
+    "item-footer";
+
+  header {
+    grid-area: item-header;
+  }
+
+  main {
+    grid-area: item-main;
+    // height: 1000px; // Testing 
+  }
+
+  footer {
+    grid-area: item-footer;
+  }
+}
+
+@media (min-width: $desktop-size) {
+  #app {
+    grid-template-columns: 250px auto;
+    grid-template-rows: auto 65px;
+    grid-template-areas:
+      "none item-main"
+      "none item-footer";
+
+    header {
+      position: fixed;
+      width: 250px;
+      height: 100%;
+    }
+  }
+}

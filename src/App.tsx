@@ -5,18 +5,16 @@ import {
 } from 'components'
 import './App.scss';
 
-function App() {
+export const App = () => {
   return (
     <div id="app">
       <Header/>
       
       <main>
-          {/* Router navigator*/}  
+          {/* Router navigator*/} 
       </main>
 
       <Footer/>
     </div>
   );
 }
-
-export default App;

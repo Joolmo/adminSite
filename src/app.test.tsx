@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, getByLabelText } from '@testing-library/react';
-import { App } from './App';
+import { App } from './app';
 
 
 test('renders requested components', () => {

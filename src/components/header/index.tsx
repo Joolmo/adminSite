@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { NavItem } from 'components/nav-item'
+import logo from 'images/logo.svg'
 import './header.scss'
 
 
@@ -9,7 +10,8 @@ export const Header = () => {
 
     return (
         <header>
-            <div id="mobileHeader">
+            <div id="header">
+                <img src={logo} alt="page logo"/>
                 <h1>Navigation</h1>
                 <i className="fa fa-bars fa-2x" onClick={() => setNavToggled(prev => !prev)}></i>
             </div>
@@ -43,6 +45,41 @@ export const Header = () => {
                         onClick={() => setCurrentPage("Tradeview")}
                         icon="fa fa-bar-chart fa-lg"
                         active={currentPage === "Tradeview"}
+                    />
+                </ul>
+
+                <h3>Service</h3>
+                <ul>
+                    <NavItem 
+                        label="Transactions"
+                        icon="fa fa-university	fa-lg"
+                        subItems={[
+                            {label: "Buy & Sell Coin", onClick: () => setCurrentPage("Buy & Sell Coin"), active: currentPage === "Buy & Sell Coin"},
+                            {label: "Deposit Yen", onClick: () => setCurrentPage("Deposit Yen"), active: currentPage === "Deposit Yen"},
+                            {label: "Withdraw Yen", onClick: () => setCurrentPage("Withdraw Yen"), active: currentPage === "Withdraw Yen"},
+                        ]}
+                    />
+                      <NavItem 
+                        label="Rewards"
+                        onClick={() => setCurrentPage("Rewards")}
+                        icon="fa fa-trophy fa-lg"
+                        active={currentPage === "Rewards"}
+                    />
+                </ul>
+
+                <h3>Account</h3>
+                <ul>
+                    <NavItem 
+                        label="Notifications" 
+                        onClick={() => {/* navigate /dashboard */ setCurrentPage("Notifications")}}
+                        icon="fa fa-bell fa-lg"
+                        active={currentPage === "Notifications"}
+                    />
+                    <NavItem 
+                        label="Settings"
+                        onClick={() => setCurrentPage("Settings")}
+                        icon="fa fa-cog fa-lg"
+                        active={currentPage === "Settings"}
                     />
                 </ul>
             </nav>

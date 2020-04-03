@@ -15,7 +15,7 @@ $transtion-time: 0.3s;
         flex-flow: row nowrap;
         justify-content: flex-start;
         align-items: center;
-        padding: 10px 20px 10px 20px;
+        padding: 5px 20px 5px 20px;
 
         &.activeLink {
             padding-left: 15px;
@@ -32,15 +32,6 @@ $transtion-time: 0.3s;
             color: $highlighted-color;
             transition: transform $transtion-time ease-in-out;
         }
-    }
-
-    &.active .main-item .toggle {
-        visibility: visible;
-        transform: rotate(-90deg);
-    }
-
-    &.inactive .main-item .toggle {
-        visibility: visible;
     }
 
     .main-item, .sub-item {
@@ -62,7 +53,7 @@ $transtion-time: 0.3s;
         .sub-item {
             display: flex;
             box-sizing: border-box;
-            padding: 10px 0 10px 60px;
+            padding: 6px 0 6px 60px;
             width: 100%;
 
             &.activeLink {
@@ -75,12 +66,25 @@ $transtion-time: 0.3s;
         overflow: hidden;
     }
 
-    &.active .sub-items {
-        max-height: 0px; 
+    &.active {
+        .main-item .toggle {
+            visibility: visible;
+            transform: rotate(-90deg);
+        }
+
+        .sub-items {
+            max-height: 0px; 
+        }
     }
 
-    &.inactive .sub-items {
-        max-height: 500px;  
+    &.inactive  {
+        .main-item .toggle {
+            visibility: visible;
+        }
+
+        .sub-items {
+            max-height: 500px;  
+        }
     }
 
     // current page

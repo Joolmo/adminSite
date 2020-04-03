@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './nav-item.scss'
 
 
@@ -16,6 +16,12 @@ interface IProps {
 
 export const NavItem = ( {label, icon, onClick, subItems = [], active = false}: IProps ) => {
     const [ isToggled, setToggled ] = useState(false)
+    const [ isActive, setActive ] = useState(false)
+
+    useEffect(() => {
+        if(subItems.find(item => item.active)) setActive(true)
+        else setActive(active)
+    }, [subItems])
 
     const hasSubItems = subItems.length > 0
     const activeLink = "activeLink"
@@ -23,7 +29,7 @@ export const NavItem = ( {label, icon, onClick, subItems = [], active = false}: 
     return (
         <li className={`nav-item ${hasSubItems ? (isToggled ? "active" : "inactive" ) : ""}`}>
             <div 
-                className={`main-item ${active ? activeLink : ""}`} 
+                className={`main-item ${isActive ? activeLink : ""}`} 
                 onClick={ hasSubItems ? (() => setToggled(prevSt => !prevSt)) : onClick }
             >
                 <i className={icon}></i>

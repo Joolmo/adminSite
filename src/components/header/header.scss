@@ -12,7 +12,7 @@ header {
         padding: 0;
     }
 
-    #mobileHeader {
+    #header {
         display: flex;
         justify-content: space-between;
         padding: 0 20px 0 20px;
@@ -50,7 +50,18 @@ header {
         background-color: $third-color;
         justify-content: space-around;
 
-        #mobileHeader { display: none; }
+        #header { 
+            h1 {
+                font-size: x-large;
+            }
+
+            i {
+                position: absolute;
+                left: 250px;
+                top: 20px;
+                color: black;
+            }
+        }
         
         nav {
             height: 90%;

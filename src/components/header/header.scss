@@ -6,6 +6,12 @@ header {
     flex-flow: column nowrap;  
     background-color: $third-color; 
 
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
     #mobileHeader {
         display: flex;
         justify-content: space-between;
@@ -26,27 +32,14 @@ header {
     nav {
         display: flex;
         flex-flow: nowrap column;
-        background-color: $second-color;
+        background-color: $third-color;
         transition: transform .3s ease-in-out;
 
         &.toggled { transform: translateY(0); }
         &.notToggled { transform: translateY(-100%); }
 
-        & > div {
-            display: flex;
-            justify-content: center;
-            width: 80%;
-            padding: 15px;
-            margin: 5px auto 5px auto;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 500;
-            color: $second-font-color;
-        }
-
-        & > div:hover {
-            background-color: $main-color;
-            color: $main-font-color;
+        & > h3 {
+            display: none;
         }
     }
 }
@@ -66,6 +59,13 @@ header {
 
             // Remove the slide effect of the mobile version
             &.notToggled { transform: translateY(0); }
+
+            h3 {
+                display: flex;
+                color: white;
+                margin-left: 20px;
+                margin-right: auto;
+            }
         }
     }
 }

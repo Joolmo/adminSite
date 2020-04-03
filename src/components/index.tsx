@@ -1,7 +1,9 @@
-import { Header } from './header/header'
-import { Footer } from './footer/footer'
+import { Header } from './header'
+import { Footer } from './footer'
+import { NavItem } from './nav-item'
 
 export {
     Header,
     Footer,
+    NavItem,
 }

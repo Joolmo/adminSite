@@ -1,10 +1,9 @@
-@import 'styles/global-variables.scss';
-
+@import "../../assets/styles/global-variables.scss";
 
 header {
     display: flex;
-    flex-flow: column nowrap;  
-    background-color: $third-color; 
+    flex-flow: column nowrap;
+    background-color: $third-color;
 
     ul {
         list-style: none;
@@ -18,8 +17,10 @@ header {
         padding: 0 20px 0 20px;
         z-index: 10; // 1 level above nav (slide down effect)
         background-color: $third-color;
-    
-        h1 { color: $second-font-color; }
+
+        h1 {
+            color: $second-font-color;
+        }
 
         & > i {
             color: $second-font-color;
@@ -33,10 +34,14 @@ header {
         display: flex;
         flex-flow: nowrap column;
         background-color: $third-color;
-        transition: transform .3s ease-in-out;
+        transition: transform 0.3s ease-in-out;
 
-        &.toggled { transform: translateY(0); }
-        &.notToggled { transform: translateY(-100%); }
+        &.toggled {
+            transform: translateY(0);
+        }
+        &.notToggled {
+            transform: translateY(-100%);
+        }
 
         & > h3 {
             display: none;
@@ -45,12 +50,11 @@ header {
 }
 
 @media (min-width: $desktop-size) {
-
     header {
         background-color: $third-color;
         justify-content: space-around;
 
-        #header { 
+        #header {
             h1 {
                 font-size: x-large;
             }
@@ -59,14 +63,16 @@ header {
                 display: none; // temporal
             }
         }
-        
+
         nav {
             height: 90%;
             background-color: $third-color;
             transition: none; // Remove the slide effect of the mobile version
 
             // Remove the slide effect of the mobile version
-            &.notToggled { transform: translateY(0); }
+            &.notToggled {
+                transform: translateY(0);
+            }
 
             h3 {
                 display: flex;

@@ -1,0 +1,34 @@
+@import "../../assets/styles/global-variables.scss";
+
+$highlighted-color: #50b8e4;
+$hover-layer: rgba(255, 255, 255, 0.15);
+$transtion-time: 0.3s;
+
+.nav-item {
+    display: flex;
+    list-style: none;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    color: $second-font-color;
+
+    &.active {
+        border-left: solid 5px $highlighted-color;
+    }
+    i:nth-child(1) {
+        width: 20px;
+    }
+    span {
+        flex-grow: 1;
+        padding-left: 15px;
+    }
+}
+
+ul.nav-list {
+    width: 100%;
+    margin-top: 10px;
+    .nav-item {
+        padding-right: 0;
+    }
+}

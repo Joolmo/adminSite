@@ -1,6 +1,6 @@
 import { Header } from './header'
 import { Toolbar } from './toolbar'
-import { NavItem } from './nav-item'
+import { NavItem } from './navItem'
 
 export {
     Header,

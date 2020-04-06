@@ -6,29 +6,28 @@ interface IProps {
     label: string
     icon?: string
     onClick?: (arg: string) => void
-    children?: ReactElement<IProps>[]
     active?: boolean
+    children?: ReactElement<IProps>[]
 }
-
-
 
 export const NavItem = ({ icon, onClick, label, children, active = false }: IProps) => {
     const [isToggled, setToggled] = useState(false)
-    debugger
+
     return (
-        <>
-            <li className={`nav-item ${active ? "active" : ""}`} onClick={!!onClick ? () => onClick(label) : () => setToggled(current => !current)}>
+        <li className={`nav-item ${isToggled ? "toggled" : !!children ? "unToggled" : "" } ${active ? "active" : ""}`}>
+            <div onClick={() => {
+                if(!!onClick) { onClick(label) }
+                if(!!children) { setToggled(current => !current)}
+            }}>
                 {icon && <i className={`fa ${icon}`}></i>}
                 <span>{label}</span>
-                <i className={`fa toggle fa-chevron-up`}></i>
-            </li >
-            {children && isToggled &&
+                <i className="toggle fa fa-chevron-right"></i>
+            </div >
+            {children &&
                 <ul className="nav-list">
                     {children}
                 </ul >
             }
-        </>
+        </li>
     )
 }
-
-

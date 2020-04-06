@@ -1,17 +1,73 @@
-import React, { useState } from 'react'
+import React, { useState, ReactElement, Children } from 'react'
 import { NavItem } from 'components/navItem'
 import logo from 'images/logo.svg'
 import './header.scss'
-import { Toolbar } from 'components/toolbar'
 
 
 export const Header = () => {
     const [navIsToggled, setNavToggled] = useState(false)
     const [currentPage, setCurrentPage] = useState("dashboard") // Temporal, testing
-    const items = [{
-        label: "Dashboard",
-        icon: "fa fa-home fa-lg",
-    }]
+    
+    const titleSection = [
+        { 
+            label: "Dashboard",
+            icon: "fa-home fa-lg",
+        },
+        {
+            label: "Exchange",
+            icon: "fa-refresh fa-lg",
+        },
+        {
+            label: "My Wallet",
+            icon: "fa-credit-card fa-lg",
+            navItems: [
+                { label: "balance" },
+                { label: "buy crypto"},
+                { label: "sell crypto"},
+            ]
+        },
+        {
+            label: "Tradeview",
+            icon: "fa-bar-chart fa-lg"
+        }
+    ]
+    const serviceSection = [
+        {
+            label: "Transactions",
+            icon: "fa-university fa-lg"
+        },
+        {
+            label: "Rewards",
+            icon: "fa-trophy fa-lg"
+        }
+    ]
+    const accountSection = [
+        {
+            label: "Notifications",
+            icon :"fa-bell fa-lg"
+        },
+        {
+            label: "Settings",
+            icon :"fa-cog fa-lg"
+        }
+    ]
+
+    const renderItems = (items: any[]) => {
+        return items.map((item) => {
+            let { navItems, ...props} = item
+            
+            return (
+                <NavItem
+                    {...props}
+                    onClick={ navItems ? undefined : (arg: string) => setCurrentPage(arg)}
+                    active={currentPage === props.label}
+                >
+                    { navItems && renderItems(navItems) }
+                </NavItem>
+            )
+        })
+    }
+
     return (
         <header>
             <div id="header">
@@ -21,89 +77,13 @@ export const Header = () => {
             </div>
 
             <nav className={navIsToggled ? "toggled" : "notToggled"}>
-                <h3>Quick Acces</h3>
-                <ul>
-
-
-                    {items.map((item) =>
-                        <NavItem
-                            {...item}
-                            onClick={(arg: string) => setCurrentPage(arg)}
-                            active={currentPage === "dashboard"}
-                        />
-                    )}
-                    <NavItem
-                        label="Dashboard"
-                        onClick={(arg: string) => setCurrentPage(arg)}
-                        icon="fa fa-home fa-lg"
-                        active={currentPage === "dashboard"}
-                    />
-                    <NavItem
-                        label="Exchange"
-                        onClick={(arg: string) => setCurrentPage(arg)}
-                        icon="fa fa-refresh fa-lg"
-                        active={currentPage === "Exchange"}
-                    />
-                    <NavItem
-                        label="My Wallet"
-                        icon="fa fa-credit-card	fa-lg"
-                        active={currentPage === ""}
-                    >
-                        <NavItem
-                            label="balance"
-                            onClick={(arg: string) => setCurrentPage(arg)}
-                            active={currentPage === "balance"}
-                        ></NavItem>
-                        <NavItem
-                            label="buy crypto"
-                            onClick={(arg: string) => setCurrentPage(arg)}
-                            active={currentPage === "buy crypto"}
-                        ></NavItem>
-                        <NavItem
-                            label="sell crypto"
-                            onClick={(arg: string) => setCurrentPage(arg)}
-                            active={currentPage === "sell crypto"}
-                        ></NavItem>
-                    </NavItem>
-
-                    <NavItem
-                        label="Tradeview"
-                        onClick={(arg: string) => setCurrentPage(arg)}
-                        icon="fa fa-bar-chart fa-lg"
-                        active={currentPage === "Tradeview"}
-                    />
-                </ul>
+                <h3>Title</h3>
+                <ul> {renderItems(titleSection)} </ul>
 
                 <h3>Service</h3>
-                <ul>
-                    <NavItem
-                        label="Transactions"
-                        icon="fa fa-university	fa-lg"
-                        active={currentPage === ""}
-                    />
-                    <NavItem
-                        label="Rewards"
-                        onClick={(arg: string) => setCurrentPage(arg)}
-                        icon="fa fa-trophy fa-lg"
-                        active={currentPage === "Rewards"}
-                    />
-                </ul>
-
+                <ul> {renderItems(serviceSection)} </ul>
                 <h3>Account</h3>
-                <ul>
-                    <NavItem
-                        label="Notifications"
-                        onClick={(arg: string) => setCurrentPage(arg)}
-                        icon="fa fa-bell fa-lg"
-                        active={currentPage === "Notifications"}
-                    />
-                    <NavItem
-                        label="Settings"
-                        onClick={(arg: string) => setCurrentPage(arg)}
-                        icon="fa fa-cog fa-lg"
-                        active={currentPage === "Settings"}
-                    />
-                </ul>
+                <ul> {renderItems(accountSection)} </ul>
             </nav>
         </header>
     )

@@ -5,7 +5,23 @@ import Chart from "chart.js";
 import './index.scss'
 
 
-export const MoneyCard = () => {
+interface IProps {
+    name: string
+    contraction: string
+    image: string
+    color: string    
+    request: () => Promise<any>
+    resolver: (data: any) => {
+        data: number[],
+        price: number,
+        change: {
+            quantity: number,
+            isGrowing: boolean
+        }
+    }
+}
+
+export const MoneyCard = ({name, contraction, image, color, request, resolver}: IProps) => {
     const chartRef = React.createRef<HTMLCanvasElement>()
     const [price, setPrice] = useState(0)
     const [isGrowing, setGrowing] = useState(false)
@@ -43,23 +59,27 @@ export const MoneyCard = () => {
     }
     
     useEffect(() => {
-        const canvas = chartRef.current?.getContext("2d")
-        
-        if(canvas) { setUpChart(canvas, "#FFC246", [10,2,3,4]) }
-        else { console.error("It is not possible for the app to render the charts.") }
+        request()
+        .then((data) => resolver(data))
+        .then(({data, change, price}) => {
+            const canvas = chartRef.current?.getContext("2d")
+            
+            if(canvas) { setUpChart(canvas, color, data) }
+            else { console.error("It is not possible for the app to render the charts.") }
 
-        setChange(2.33)
-        setGrowing(true)
-        setPrice(100)
+            setChange(change.quantity)
+            setGrowing(change.isGrowing)
+            setPrice(price)
+        })
     },[])
 
     return (
         <Card className="moneyCard">
             <div>
-                <img src={bitcoin} alt="bitcoin"/>
+                <img src={image} alt={name}/>
                 { 
                     // @ts-ignore
-                    <span className="title" subText="bitcoin">BTC</span>
+                    <span className="title" subText={name}>{contraction}</span>
                 }
                 { 
                     // @ts-ignore
@@ -70,3 +90,25 @@ export const MoneyCard = () => {
         </Card>
     )
 }
+
+/* Example 
+    <MoneyCard 
+          resolver={(data: IHistoricalCoinData) => {
+            const openPrice = data.historical[0].open
+            const closePrice = data.historical[data.historical.length-1].close
+            const isGrowing = openPrice < closePrice
+            const change = ((closePrice - openPrice) / 100)
+            
+            return {
+              data: data.historical.map(item => item.close),
+              price: closePrice,
+              change: {
+                quantity: change,
+                isGrowing: isGrowing
+              }
+            }
+          }} 
+          request={() => HistoricalCoinService({})}
+          name="Bitcoin" contraction="BTC" color="#FFC246" image={bitcoin}
+        />   
+*/

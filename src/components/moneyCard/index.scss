@@ -1,0 +1,43 @@
+.moneyCard {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    width: 320px;
+    height: 138px;
+
+    & > div {
+        display: flex;
+    }
+
+    img {
+        padding: 0px 10px;
+    }
+
+    span[subText] {
+        display: block;
+
+        &::after {
+            content: "\A"attr(subText);
+            white-space: pre;
+            font-weight: 300;
+            font-size: 15px;
+        }
+
+        &.title::after {
+            opacity: 0.4;
+        }
+
+        &.price {
+            margin-left: auto;
+            padding: 0px 10px;
+            font-size: 16px;
+    
+            &.growing::after {
+                color: green;
+            }
+            &.reducing::after {
+                color: red;
+            }
+        }
+    }
+}

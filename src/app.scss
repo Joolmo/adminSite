@@ -1,42 +1,43 @@
-@import 'styles/global-variables.scss';
-
+@import "./assets/styles/global-variables.scss";
 
 #app {
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: 85px auto 65px;
-  grid-template-areas:
-    "item-header"
-    "item-main"
-    "item-footer";
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 85px auto;
+    grid-template-areas:
+        "item-header"
+        "item-main";
 
-  header {
-    grid-area: item-header;
-  }
+    header {
+        grid-area: item-header;
+    }
 
-  main {
-    grid-area: item-main;
-    background-color: $main-color; // Temporal
-    // height: 1000px; // Testing 
-  }
+    main {
+        grid-area: item-main;
+        background-color: $second-color; // Temporal
+        // height: 1000px; // Testing
+    }
 
-  footer {
-    grid-area: item-footer;
-  }
+    #toolbar {
+        grid-area: item-toolbar;
+        display: none;
+    }
 }
 
 @media (min-width: $desktop-size) {
-  #app {
-    grid-template-columns: 250px auto;
-    grid-template-rows: auto 65px;
-    grid-template-areas:
-      "none item-main"
-      "none item-footer";
+    $sidebarWidth: 215px;
 
-    header {
-      position: fixed;
-      width: 250px;
-      height: 100%;
+    #app {
+        grid-template-columns: $sidebarWidth auto;
+        grid-template-rows: 65px auto;
+        grid-template-areas:
+            "none item-toolbar"
+            "none item-main";
+
+        header {
+            position: fixed;
+            width: $sidebarWidth;
+            height: 100%;
+        }
     }
-  }
 }

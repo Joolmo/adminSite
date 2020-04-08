@@ -2,7 +2,8 @@ import React from 'react';
 import {
   Header,
   Footer,
-  MoneyCard
+  MoneyCard,
+  Toolbar
 } from 'components'
 import './app.scss';
 import { IHistoricalCoinData } from 'interfaces';
@@ -12,8 +13,9 @@ import { HistoricalCoinService } from 'services/historicalCoinService';
 export const App = () => {
   return (
     <div id="app">
-      <Header/>
-      
+      <Header />
+      <Toolbar />
+
       <main>
       <MoneyCard 
           resolver={(data: IHistoricalCoinData) => {
@@ -36,7 +38,6 @@ export const App = () => {
         />   
       </main>
 
-      <Footer/>
     </div>
   );
 }

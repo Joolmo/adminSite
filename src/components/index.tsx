@@ -1,9 +1,11 @@
-import { Header } from './header/header'
-import { Footer } from './footer/footer'
+import { Header } from './header'
+import { Toolbar } from './toolbar'
 import { MoneyCard } from './moneyCard'
+import { NavItem } from './navItem' 
 
 export {
     Header,
-    Footer,
     MoneyCard,
+    Toolbar,
+    NavItem,
 }

@@ -1,0 +1,7 @@
+@import "../../assets/styles/global-variables.scss";
+
+#toolbar {
+    display: flex;
+    background-color: $main-color;
+    box-shadow: 0px 8px 28px rgba(72, 89, 102, 0.1006);
+}

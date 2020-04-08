@@ -1,0 +1,50 @@
+@import "../../assets/styles/globalVariables.scss";
+
+$highlighted-color: #50b8e4;
+$hover-layer: rgba(255, 255, 255, 0.15);
+$transtion-time: 0.3s;
+
+.nav-item {
+    display: flex;
+    list-style: none;
+    flex-flow: column nowrap;
+    color: $second-font-color;
+    width: 100%;
+
+    & > div {
+        display: flex;
+        flex-flow: row nowrap;
+        padding: 10px 20px;
+    
+        span { margin-left: 15px; }
+
+        &:hover { background-color: $hover-layer; }
+
+        .toggle {
+            margin: 0 0 0 auto;
+            transition: transform $transtion-time ease-in-out;
+            visibility: hidden;
+        }
+    }
+
+    &.toggled, &.unToggled { & > div .toggle { visibility: visible; } }
+    &.toggled > div .toggle { transform: rotate(90deg); }
+
+    &.active > div {
+        padding-left: 15px;
+        background-color: $hover-layer;
+        border-left: solid 5px $highlighted-color;
+    }
+
+    .nav-list {
+        display: flex;
+        flex-flow: column nowrap;
+        padding: 0 0 0 10px;
+        margin: 0;
+        overflow: hidden;
+        transition: max-height $transtion-time ease-in-out;
+    }
+
+    &.unToggled > .nav-list { max-height: 0px; }
+    &.toggled > .nav-list { max-height: 500px; }
+}

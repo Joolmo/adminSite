@@ -1,5 +1,5 @@
 import React, { useState, ReactElement } from 'react'
-import './nav-item.scss'
+import './index.scss'
 
 
 interface IProps {

@@ -1,6 +1,5 @@
-import React, { useEffect, createContext, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card } from 'containers'
-import bitcoin from 'assets/images/bitcoin.svg'
 import Chart from "chart.js";
 import './index.scss'
 
@@ -84,7 +83,7 @@ export const MoneyCard = ({name, contraction, image, color, request, resolver}: 
                     </div>
                 </div>
                 <div>
-                    <span>{price}</span>
+                    <span>{price}€</span>
                     <span className={`price ${isGrowing ? "growing" : "reducing"}`}>{`${change.toFixed(2)}%`}</span>
                 </div>
             </div>
@@ -92,27 +91,3 @@ export const MoneyCard = ({name, contraction, image, color, request, resolver}: 
         </Card>
     )
 }
-/*                    <span className="title" subText={name}>{contraction}</span>
-                    <span className={`price ${isGrowing ? "growing" : "reducing"}`} subText={`${change.toFixed(2)}%`}>{price}$</span>
-                    */
-/* Example 
-    <MoneyCard 
-          resolver={(data: IHistoricalCoinData) => {
-            const openPrice = data.historical[0].open
-            const closePrice = data.historical[data.historical.length-1].close
-            const isGrowing = openPrice < closePrice
-            const change = ((closePrice - openPrice) / 100)
-            
-            return {
-              data: data.historical.map(item => item.close),
-              price: closePrice,
-              change: {
-                quantity: change,
-                isGrowing: isGrowing
-              }
-            }
-          }} 
-          request={() => HistoricalCoinService({})}
-          name="Bitcoin" contraction="BTC" color="#FFC246" image={bitcoin}
-        />   
-*/

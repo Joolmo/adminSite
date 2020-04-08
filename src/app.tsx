@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Header,
-  Footer,
   MoneyCard,
   Toolbar
 } from 'components'

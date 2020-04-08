@@ -1,0 +1,85 @@
+@import "../../assets/styles/globalVariables.scss";
+
+header {
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: $third-color;
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    #header {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px 0 20px;
+        z-index: 10; // 1 level above nav (slide down effect)
+        background-color: $third-color;
+
+        h1 {
+            color: $second-font-color;
+        }
+
+        & > i {
+            color: $second-font-color;
+            padding: 20;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+    }
+
+    nav {
+        display: flex;
+        flex-flow: nowrap column;
+        background-color: $third-color;
+        transition: transform 0.3s ease-in-out;
+
+        &.toggled {
+            transform: translateY(0);
+        }
+        &.notToggled {
+            transform: translateY(-100%);
+        }
+
+        & > h3 {
+            display: none;
+        }
+    }
+}
+
+@media (min-width: $desktop-size) {
+    header {
+        background-color: $third-color;
+        justify-content: space-around;
+
+        #header {
+            h1 {
+                font-size: x-large;
+            }
+
+            i {
+                display: none; // temporal
+            }
+        }
+
+        nav {
+            height: 90%;
+            background-color: $third-color;
+            transition: none; // Remove the slide effect of the mobile version
+
+            // Remove the slide effect of the mobile version
+            &.notToggled {
+                transform: translateY(0);
+            }
+
+            h3 {
+                display: flex;
+                color: white;
+                margin-left: 20px;
+                margin-right: auto;
+            }
+        }
+    }
+}

@@ -75,22 +75,26 @@ export const MoneyCard = ({name, contraction, image, color, request, resolver}: 
 
     return (
         <Card className="moneyCard">
-            <div>
-                <img src={image} alt={name}/>
-                { 
-                    // @ts-ignore
-                    <span className="title" subText={name}>{contraction}</span>
-                }
-                { 
-                    // @ts-ignore
-                    <span className={`price ${isGrowing ? "growing" : "reducing"}`} subText={`${change.toFixed(2)}%`}>{price}$</span>
-                }
+            <div className="moneyContent">
+                <div>
+                    <img src={image} alt={name}/>
+                    <div>
+                        <span>{contraction}</span>
+                        <span className="title">{name}</span>
+                    </div>
+                </div>
+                <div>
+                    <span>{price}</span>
+                    <span className={`price ${isGrowing ? "growing" : "reducing"}`}>{`${change.toFixed(2)}%`}</span>
+                </div>
             </div>
             <canvas ref={chartRef} id="chart" width="270" height="80" />
         </Card>
     )
 }
-
+/*                    <span className="title" subText={name}>{contraction}</span>
+                    <span className={`price ${isGrowing ? "growing" : "reducing"}`} subText={`${change.toFixed(2)}%`}>{price}$</span>
+                    */
 /* Example 
     <MoneyCard 
           resolver={(data: IHistoricalCoinData) => {

@@ -5,39 +5,32 @@
     width: 320px;
     height: 138px;
 
+    .moneyContent {
+        display: flex;
+        justify-content: space-between;
+
+        div:nth-child(1) {
+            display: flex;
+            flex-direction: row;
+
+            div {
+                flex-direction: column;
+            }
+
+            span:nth-child(1) { font-size: 15px; }
+        }
+
+        div:nth-child(2) {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
     & > div {
         display: flex;
     }
 
     img {
         padding: 0px 10px;
-    }
-
-    span[subText] {
-        display: block;
-
-        &::after {
-            content: "\A"attr(subText);
-            white-space: pre;
-            font-weight: 300;
-            font-size: 15px;
-        }
-
-        &.title::after {
-            opacity: 0.4;
-        }
-
-        &.price {
-            margin-left: auto;
-            padding: 0px 10px;
-            font-size: 16px;
-    
-            &.growing::after {
-                color: green;
-            }
-            &.reducing::after {
-                color: red;
-            }
-        }
     }
 }

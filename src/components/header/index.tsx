@@ -1,7 +1,7 @@
-import React, { useState, ReactElement, Children } from 'react'
+import React, { useState } from 'react'
 import { NavItem } from 'components/navItem'
-import logo from 'images/logo.svg'
-import './header.scss'
+import logo from 'assets/images/logo.svg'
+import './index.scss'
 
 
 export const Header = () => {

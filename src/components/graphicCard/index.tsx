@@ -9,16 +9,18 @@ export const GraphicCard = () => {
     const [data, setData] = useState<IHistoricalCoinData>()
 
     useEffect(() => {
-        HistoricalCoinService({limit:118, getPer: "hour"}).then(result => setData(result))
+        HistoricalCoinService({limit:125, getPer:"minute", currency:"JPY"}).then(result => setData(result))
       }, [])
       
     return (
         <Card className="cryptoCard">
             <CryptoGraphic data={data ? data : {
-                currency: "EUR",
-                crypto: "BTC",
-                historical: []
-            }}/>
+                    currency: "EUR",
+                    crypto: "BTC",
+                    historical: []
+                }}
+                divideXIn="hour"
+            />
         </Card>
     )
 }

@@ -7,8 +7,16 @@ import nem from 'assets/images/nem.svg'
 import ripple from 'assets/images/ripple.svg'
 import './index.scss'
 
+
 export const MoneyCardSection = () => {
-  const cardsConfig = [
+  interface ICardConfig {
+    crypto: string,
+    name: string,
+    color: string,
+    image: string
+  }
+
+  const cardsConfig: ICardConfig[] = [
     {
       crypto: "BTC",
       name: "Bitcoin",
@@ -35,7 +43,6 @@ export const MoneyCardSection = () => {
     }
   ]
 
-
   const config = cardsConfig.reduce((acum: any[], item, index) => {
     if (!(index % 2)) { acum.push([item, cardsConfig[index + 1]]) }
     return acum
@@ -44,19 +51,17 @@ export const MoneyCardSection = () => {
   return <section className="moneyCardSection">
     {
       config.map((itemConfig) => <div>
-        {itemConfig.map((card: any) =>
+        { itemConfig.map(({crypto, name, color, image}: ICardConfig) =>
           <MoneyCard
-            request={() => HistoricalCoinService({ crypto: card.crypto, currency: "EUR" })}
-            name={card.name}
-            contraction={card.crypto}
-            color={card.color}
-            image={card.image}
+            request={() => HistoricalCoinService({ crypto: crypto, currency: "EUR" })}
+            name={name}
+            contraction={crypto}
+            color={color}
+            image={image}
           />
         )}
-
       </div>
       )
     }
   </section>
-
 }

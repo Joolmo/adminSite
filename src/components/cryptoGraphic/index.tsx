@@ -1,6 +1,7 @@
 import React, { useEffect, useState, createRef, useRef } from 'react'
 import * as d3 from 'd3'
 import { IHistoricalCoinData, ICoinData } from 'interfaces';
+import './index.scss'
   
 
 interface IProps {
@@ -135,7 +136,6 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
     // base tag for thin and thick line positioned correctly in the x
     const g = root.append("g")
       .attr("stroke-linecap", "round")
-      .attr("stroke", "black")
       .selectAll("g")
       .data(graphValues)
       .join("g")
@@ -155,6 +155,31 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
       .attr("stroke", selectColor)
   }
 
+  const setVolumesYAxis = (
+    higherY: number,
+  ): d3.ScaleLinear<number, number> => d3.scaleLinear()
+    .domain([0, higherY])
+    .rangeRound([height - margin.bottom, (height/10) * 8.25 ])
+
+  const setVolumeGraphValues = (
+    root: d3.Selection<SVGSVGElement, unknown, null, undefined>, 
+    graphValues: ICoinData[], 
+    x: d3.ScaleBand<string>,
+    y: d3.ScaleLinear<number, number>
+  ): void => {
+    const g = root.append("g")
+      .selectAll("g")
+      .data(graphValues)
+      .join("g")
+      .attr("transform", d => `translate(${x(d.time.toString())},0)`);
+
+    g.append("rect")
+      .attr("y", d => y(d.volumeFrom))
+      .attr("height", d => height - y(d.volumeFrom) - margin.bottom)
+      .attr("width", x.bandwidth())
+      .attr("fill", "#EFF2FC")
+  }
+
   const setUpGraph = (ref: React.RefObject<SVGSVGElement>, dataSet: ICoinData[], showPer: "day" | "hour" | "month") => {
     // set up the root point of the graph
     const svg = d3.select(ref.current)
@@ -164,11 +189,34 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
     // set x axis and return a scale band function for positioning values.
     const x = setXAxis(svg, dataSet.map(item => item.time), showPer)
     
-    // set y axis and return a scalable logarithmic function for positioning values.
+    // set y axis and return a scale linear function for positioning values.
     const y = setYAxis(svg, d3.max(dataSet, d => d.high) as number, d3.min(dataSet, d => d.low) as number)
 
+    // set y axis specific for the volumes graph
+    const volumeY = setVolumesYAxis(d3.max(dataSet, d => d.volumeFrom) as number)
+
     // set the points on the graph using the data provided and the positioning functions x and y
+    setVolumeGraphValues(svg, dataSet, x, volumeY)
     setGraphValues(svg, dataSet, x, y)
+
+    //#region Temporal only test !!!!
+    const tooltip = d3.select("body").append("div")
+      .attr("class", "svg-tooltip")
+      .style("position", "absolute")
+      .style("visibility", "hidden")
+      .text("This is a test!");
+  
+    d3.selectAll("g")
+      .on("mouseover", function(){
+        return tooltip.style("visibility", "visible");
+      })
+      .on("mousemove", function(){
+        return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+      })
+      .on("mouseout", function(){
+        return tooltip.style("visibility", "hidden");
+      });
+    //#endregion
   }
   //#endregion 
 
@@ -178,5 +226,5 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
     if(dataset.length > 0) setUpGraph(graphRef, dataset, divideXIn)
   }, [data])
 
-  return <svg ref={graphRef}></svg>
+  return <svg className="cryptoGraphic" ref={graphRef}></svg>
 }

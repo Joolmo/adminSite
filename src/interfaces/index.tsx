@@ -13,3 +13,10 @@ export interface ICoinData {
     volumeTo: number
     close: number
 }
+
+export enum TimeDividers{
+    month = 1, 
+    day,
+    hour, 
+  }
+  

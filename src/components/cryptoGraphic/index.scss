@@ -1,17 +1,15 @@
-.cryptoGraphic {
-    .svg-tooltip {
-        font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple   Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-        background: rgba(69,77,93,.9);
-        border-radius: .1rem;
-        color: #fff;
-        display: block;
-        font-size: 11px;
-        max-width: 320px;
-        padding: .2rem .4rem;
-        position: absolute;
-        text-overflow: ellipsis;
-        white-space: pre;
-        z-index: 1000;
-        visibility: hidden;
-      }
+.cryptoGraphic .svg-tooltip {
+  background: rgba(69,77,93,.9);
+  border-radius: .1rem;
+  color: #fff;
+  display: block;
+  font-size: 11px;
+  max-width: 320px;
+  padding: .2rem .4rem;
+  position: absolute;
+  top:0;
+  text-overflow: ellipsis;
+  white-space: pre;
+  visibility: hidden;
+  transition:visibility 0.25s linear 0.25s,opacity 0.20s linear 0.20s;
 }

@@ -58,7 +58,7 @@ export const MoneyCard = ({ name, contraction, image, color, request }: IProps) 
                     data: data.historical.map((item: any) => item.close),
                     price: data.historical[data.historical.length - 1].close,
                     change: {
-                        quantity: ((closePrice - openPrice) / 100),
+                        quantity: (closePrice - openPrice) * 100 / openPrice,
                         isGrowing: openPrice < closePrice
                     }
                 }

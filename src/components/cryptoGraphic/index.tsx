@@ -1,48 +1,63 @@
 import React, { useEffect, useState, createRef, useRef } from 'react'
 import * as d3 from 'd3'
-import { IHistoricalCoinData, ICoinData } from 'interfaces';
+import { IHistoricalCoinData, ICoinData, TimeDividers } from 'interfaces';
 import './index.scss'
   
 
 interface IProps {
-  data: IHistoricalCoinData
-  divideXIn: "day" | "hour" | "month"
+  data?: IHistoricalCoinData
+  divideXIn?: TimeDividers
 }
 
 export const CryptoGraphic = ({data, divideXIn}: IProps) => {
   const graphRef = useRef<SVGSVGElement>(null)
+  const tooltipRef = useRef<HTMLDivElement>(null)
 
   //#region d3 stuff
   // graph constants
-  const height = 470
+  const height = 385
   const width = 871
+  const yTicks = 6
+  const xPadding = 0.37
   const margin = {
     top: 20,
     right: 50,
     bottom: 30,
-    left: 30
+    left: 20
   }
-  const colorGrowing = "#39D3EC"
-  const colorShrinking = "#9D7FFE"
-  const colorFont = "#1F263E"
-  const opacityFont = 0.4
-  const yTicks = 6
-  const xPadding = 0.37
-  const selectColor = (d: ICoinData) => d.open > d.close ? colorShrinking
-    : d.close > d.open ? colorGrowing
-    : d3.schemeSet1[8];
+  const candleProps = {
+    thinLineWidth: 2,
+    colorGrowing: "#39D3EC",
+    colorShrinking: "#9D7FFE",
+    selectColor: (d: ICoinData) => d.open > d.close ? candleProps.colorShrinking
+      : d.close > d.open ? candleProps.colorGrowing
+      : d3.schemeSet1[8]
+  }
+  const yLineProps = {
+    color: "#EEF1F6",
+    opacity: 0.65,
+    widthLine: "0.7px"
+  }
+  const fontProps = {
+    color: "#1F263E",
+    opacity: 0.4,
+  }
+  const barChartProps = {
+    height: 7.3, // the less, the more
+    color: "#EFF2FC"
+  }
 
   const setXAxis = (
     root: d3.Selection<SVGSVGElement, unknown, null, undefined>, 
     xValues: number[], 
-    showPer: "day" | "hour" | "month"
+    showPer: TimeDividers
   ): d3.ScaleBand<string> => {
     const domain = xValues.map(item => item.toString())
     let tickFormat: (tickValue: string) => string
     let tickValues: string[]
 
     switch(showPer) {
-      case "month": 
+      case TimeDividers.month: 
         tickValues = xValues.filter(item => new Date(item * 1000).getDate() === 1).map(item => item.toString())
         tickFormat = item => {
           const date = new Date(Number(item)* 1000)
@@ -50,7 +65,7 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
         }       
         break
     
-      case "day":
+      case TimeDividers.day:
         tickValues = xValues.filter(item => new Date(item * 1000).getHours() === 0).map(item => item.toString())
         tickFormat = item => {
           const date = new Date(Number(item)* 1000)
@@ -58,7 +73,7 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
         }
         break
 
-      case "hour": 
+      case TimeDividers.hour: 
         tickValues = xValues.filter(item => new Date(item * 1000).getMinutes() === 0).map(item => item.toString())
         tickFormat = item => {
           const date = new Date(Number(item)* 1000)
@@ -76,8 +91,8 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
       .attr("transform", `translate(0,${height - margin.bottom})`)
       .call(d3.axisBottom(x).tickValues(tickValues).tickFormat(tickFormat))
       .call(g => g.selectAll(".tick text")
-        .attr("fill", colorFont)
-        .attr("opacity", opacityFont))
+        .attr("fill", fontProps.color)
+        .attr("opacity", fontProps.opacity))
       .call(g => g.selectAll(".tick line").remove())
       .call(g => g.select(".domain").remove())
 
@@ -91,7 +106,7 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
     root: d3.Selection<SVGSVGElement, unknown, null, undefined>, 
     higherY: number,
     lowerY: number
-  ):  d3.ScaleLinear<number, number> => {
+  ): d3.ScaleLinear<number, number> => {
     const ticks = d3.scaleLinear()
       .domain([lowerY, higherY])
       .rangeRound([height - margin.bottom, margin.top])
@@ -110,15 +125,14 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
         .tickFormat(tickValue => `${tickValue}`))
       .call(g => g.selectAll(".tick text")
         .attr("transform", "translate(0,-6)"))
-      .call(g => g.selectAll(".tick line").clone()
-        .attr("stroke-opacity", 0.65)
-        .attr("stroke-width", "0.7px")
-        .attr("stroke", "#EEF1F6")
-        .attr("x2", - width + margin.left + margin.right))
+      .call(g => g.selectAll(".tick line")
+        .attr("stroke-opacity", yLineProps.opacity)
+        .attr("stroke-width", yLineProps.widthLine)
+        .attr("stroke", yLineProps.color)
+        .attr("x2", - width + margin.left + margin.right)) 
       .call(g => g.selectAll(".tick text")
-        .attr("fill", colorFont)
-        .attr("opacity", opacityFont))
-      .call(g => g.selectAll(".tick").select("line").remove())
+        .attr("fill", fontProps.color)
+        .attr("opacity", fontProps.opacity))
       .call(g => g.select(".domain").remove())
 
     root.append("g")
@@ -131,7 +145,8 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
     root: d3.Selection<SVGSVGElement, unknown, null, undefined>, 
     graphValues: ICoinData[], 
     x: d3.ScaleBand<string>,
-    y: d3.ScaleLinear<number, number>
+    y: d3.ScaleLinear<number, number>,
+    tooltip: d3.Selection<HTMLDivElement | null, unknown, null, undefined>
   ): void => {
     // base tag for thin and thick line positioned correctly in the x
     const g = root.append("g")
@@ -139,92 +154,132 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
       .selectAll("g")
       .data(graphValues)
       .join("g")
-      .attr("transform", d => `translate(${x(d.time.toString())},0)`);
+      .attr("transform", d => `translate(${x(d.time.toString())},0)`)
 
     // thin line with hiher and lower values
     g.append("line")
       .attr("y1", d => y(d.low))
       .attr("y2", d => y(d.high))
-      .attr("stroke", selectColor)
+      .attr("stroke", candleProps.selectColor)
+      .attr("stroke-width", x.bandwidth()/candleProps.thinLineWidth)
 
     // thick line with open and close values
     g.append("line")
       .attr("y1", d => y(d.open))
       .attr("y2", d => y(d.close))
       .attr("stroke-width", x.bandwidth())
-      .attr("stroke", selectColor)
+      .attr("stroke", candleProps.selectColor)
+
+    // set up the hover action
+    g.on("mouseover", d => {
+      if(d) { 
+        const data = d as ICoinData
+        tooltip.text(
+          `high: ${data.high}\n`+
+          `low: ${data.low}\n`+
+          `open: ${data.open}\n`+
+          `close: ${data.close}`
+        )
+      }
+      return tooltip.style("visibility", "visible")
+        .style("opacity", 1);
+    })
+    .on("mousemove", () => tooltip
+      .style("top", (d3.event.pageY-10)+"px")
+      .style("left",(d3.event.pageX+10)+"px"))
+    .on("mouseout", () => tooltip
+      .style("visibility", "hidden")
+      .style("opacity", 0))
   }
 
   const setVolumesYAxis = (
     higherY: number,
   ): d3.ScaleLinear<number, number> => d3.scaleLinear()
     .domain([0, higherY])
-    .rangeRound([height - margin.bottom, (height/10) * 8.25 ])
+    .rangeRound([height - margin.bottom, (height/10) * barChartProps.height ])
 
   const setVolumeGraphValues = (
     root: d3.Selection<SVGSVGElement, unknown, null, undefined>, 
     graphValues: ICoinData[], 
     x: d3.ScaleBand<string>,
-    y: d3.ScaleLinear<number, number>
+    y: d3.ScaleLinear<number, number>,
+    tooltip: d3.Selection<HTMLDivElement | null, unknown, null, undefined>
   ): void => {
     const g = root.append("g")
       .selectAll("g")
       .data(graphValues)
       .join("g")
-      .attr("transform", d => `translate(${x(d.time.toString())},0)`);
+      .attr("transform", d => `translate(${x(d.time.toString())},0)`)
 
     g.append("rect")
       .attr("y", d => y(d.volumeFrom))
       .attr("height", d => height - y(d.volumeFrom) - margin.bottom)
       .attr("width", x.bandwidth())
-      .attr("fill", "#EFF2FC")
+      .attr("fill", barChartProps.color)
+
+    g.on("mouseover", d => {
+      if(d) { 
+        const data = d as ICoinData
+        tooltip.text(
+          `Volume: ${data.volumeTo}`
+        )
+      }
+      return tooltip.style("visibility", "visible")
+        .style("opacity", 1);
+    })
+    .on("mousemove", () => tooltip
+      .style("top", (d3.event.pageY-10)+"px")
+      .style("left",(d3.event.pageX+10)+"px"))
+    .on("mouseout", () => tooltip
+      .style("visibility", "hidden")
+      .style("opacity", 0));
   }
 
-  const setUpGraph = (ref: React.RefObject<SVGSVGElement>, dataSet: ICoinData[], showPer: "day" | "hour" | "month") => {
+  const setUpGraph = (
+    rootRef: React.RefObject<SVGSVGElement>, 
+    tipRef: React.RefObject<HTMLDivElement>, 
+    dataSet: ICoinData[], 
+    showPer: TimeDividers
+  ): void => {
+    // reset previous graph
+    d3.select(rootRef.current).selectAll("g").remove()
+    
     // set up the root point of the graph
-    const svg = d3.select(ref.current)
+    const svg = d3.select(rootRef.current)
       //@ts-ignore
       .attr("viewBox", [0, 0, width, height]);
+    
+    // set up the div tooltip reference for d3
+    const tooltip = d3.select(tooltipRef.current)
 
     // set x axis and return a scale band function for positioning values.
-    const x = setXAxis(svg, dataSet.map(item => item.time), showPer)
+    const xValues = dataSet.map(item => item.time)
+    const x = setXAxis(svg, xValues, showPer)
     
     // set y axis and return a scale linear function for positioning values.
-    const y = setYAxis(svg, d3.max(dataSet, d => d.high) as number, d3.min(dataSet, d => d.low) as number)
+    const yMaxValue = d3.max(dataSet, d => d.high) as number
+    const yMinValue = d3.min(dataSet, d => d.low) as number
+    const y = setYAxis(svg, yMaxValue, yMinValue)
 
     // set y axis specific for the volumes graph
-    const volumeY = setVolumesYAxis(d3.max(dataSet, d => d.volumeFrom) as number)
+    const volumeYTopValue = d3.max(dataSet, d => d.volumeFrom) as number
+    const volumeY = setVolumesYAxis(volumeYTopValue)
 
     // set the points on the graph using the data provided and the positioning functions x and y
-    setVolumeGraphValues(svg, dataSet, x, volumeY)
-    setGraphValues(svg, dataSet, x, y)
-
-    //#region Temporal only test !!!!
-    const tooltip = d3.select("body").append("div")
-      .attr("class", "svg-tooltip")
-      .style("position", "absolute")
-      .style("visibility", "hidden")
-      .text("This is a test!");
-  
-    d3.selectAll("g")
-      .on("mouseover", function(){
-        return tooltip.style("visibility", "visible");
-      })
-      .on("mousemove", function(){
-        return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
-      })
-      .on("mouseout", function(){
-        return tooltip.style("visibility", "hidden");
-      });
-    //#endregion
+    setVolumeGraphValues(svg, dataSet, x, volumeY, tooltip)
+    setGraphValues(svg, dataSet, x, y, tooltip)
   }
   //#endregion 
 
   useEffect(() => {
-    const dataset = data.historical
-    console.log(dataset.map(item => `volFrom: ${item.volumeFrom} | volTo: ${item.volumeTo}`))
-    if(dataset.length > 0) setUpGraph(graphRef, dataset, divideXIn)
+    if(data && divideXIn) {
+      const dataset = data.historical
+      if(dataset.length > 0) setUpGraph(graphRef, tooltipRef, dataset, divideXIn)
+    }
   }, [data])
 
-  return <svg className="cryptoGraphic" ref={graphRef}></svg>
+  return <div className="cryptoGraphic">
+    <svg ref={graphRef}></svg>
+    <div className="svg-tooltip" ref={tooltipRef}></div>
+  </div>
 }

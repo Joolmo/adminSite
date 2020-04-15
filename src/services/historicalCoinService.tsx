@@ -26,7 +26,8 @@ export const HistoricalCoinService = async ({getPer = TimeDividers.day, limit = 
     const endPoints = {
         [TimeDividers.hour]: "histominute",
         [TimeDividers.day]: "histohour",
-        [TimeDividers.month]: "histoday"
+        [TimeDividers.month]: "histoday",
+        [TimeDividers.max]: "histoday",
     }
 
     const response = await CryptoDataSrc({

@@ -15,8 +15,9 @@ export interface ICoinData {
 }
 
 export enum TimeDividers{
-    month = 1, 
+    max = 1,
+    month, 
     day,
-    hour, 
+    hour,
   }
   

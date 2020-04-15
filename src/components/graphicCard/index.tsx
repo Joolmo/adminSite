@@ -11,10 +11,15 @@ export const GraphicCard = () => {
     const [currency, setCurrency] = useState("JPY")
     const [crypto, setCrypto] = useState("BTC")
     const [coinDDToggled, setcoinDDToggle] = useState(false)
+    const [coinLimit, setCoinLimit] = useState(250)
 
     useEffect(() => {
-        HistoricalCoinService({limit:125, getPer: timeDivider, currency:currency, crypto: crypto}).then(result => setData(result))
-      }, [timeDivider, crypto, currency])
+        HistoricalCoinService({
+            limit:coinLimit, 
+            getPer: timeDivider, 
+            currency:currency, 
+            crypto: crypto}).then(result => setData(result))
+      }, [timeDivider, crypto, currency, coinLimit])
     
     // Temporal list of coins (must be provided by the api or other less hardcoded way)
     const coins = [
@@ -106,8 +111,11 @@ export const GraphicCard = () => {
                 { Object.keys(TimeDividers).filter((key: any) => !isNaN(Number(TimeDividers[key])))
                     .map((item:any) => (
                         <button
-                            className={`timeButton ${timeDivider == Number(TimeDividers[item]) ? "selected" : ""}`}
-                            onClick={() => setTimeDivider(Number(TimeDividers[item]))}
+                            className={`timeButton ${timeDivider === Number(TimeDividers[item]) ? "selected" : ""}`}
+                            onClick={() => {
+                                setTimeDivider(Number(TimeDividers[item]))
+                                setCoinLimit(Number(TimeDividers[item]) === TimeDividers.max ? 2000 : 250)
+                            }}
                         >{item}</button>
                     ))
                 }

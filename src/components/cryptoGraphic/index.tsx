@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createRef, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import * as d3 from 'd3'
 import { IHistoricalCoinData, ICoinData, TimeDividers } from 'interfaces';
 import './index.scss'
@@ -6,24 +6,25 @@ import './index.scss'
 
 interface IProps {
   data?: IHistoricalCoinData
-  divideXIn?: TimeDividers
+  divideXIn?: TimeDividers,
 }
 
 export const CryptoGraphic = ({data, divideXIn}: IProps) => {
   const graphRef = useRef<SVGSVGElement>(null)
+  const yAxisRef = useRef<SVGSVGElement>(null)
   const tooltipRef = useRef<HTMLDivElement>(null)
 
   //#region d3 stuff
-  // graph constants
+  let width = 871 // non constant
+  const generateWidth = (items: number) => items * (871/125)
   const height = 385
-  const width = 871
   const yTicks = 6
   const xPadding = 0.37
   const margin = {
     top: 20,
     right: 50,
     bottom: 30,
-    left: 20
+    left: 10
   }
   const candleProps = {
     thinLineWidth: 2,
@@ -80,11 +81,22 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
           return `${date.getHours().toString()}:00`
         }
         break
+      
+      case TimeDividers.max: 
+      tickValues = xValues.filter(item => {
+        const date = new Date(item * 1000)
+        return date.getMonth() == 1 && date.getDate() == 1
+      }).map(item => item.toString())
+      tickFormat = item => {
+        const date = new Date(Number(item)* 1000)
+        return `${date.getFullYear().toString()}`
+      }
+      break
     }
     
     const x = d3.scaleBand()
       .domain(domain)
-      .range([margin.left, width - margin.right])
+      .range([margin.left, width])
       .padding(xPadding)
     
     const xAxis = (g: d3.Selection<SVGGElement, unknown, null, undefined>) => g
@@ -119,7 +131,7 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
       .rangeRound([height - margin.bottom, margin.top])
 
     const yAxis = (g: d3.Selection<SVGGElement, unknown, null, undefined>) => g
-      .attr("transform", `translate(${width - margin.right},0)`)
+      .attr("transform", `translate(${805},0)`)
       .call(d3.axisRight(y)
         .tickValues(y.ticks(yTicks))
         .tickFormat(tickValue => `${tickValue}`))
@@ -129,7 +141,7 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
         .attr("stroke-opacity", yLineProps.opacity)
         .attr("stroke-width", yLineProps.widthLine)
         .attr("stroke", yLineProps.color)
-        .attr("x2", - width + margin.left + margin.right)) 
+        .attr("x2", "-100%")) 
       .call(g => g.selectAll(".tick text")
         .attr("fill", fontProps.color)
         .attr("opacity", fontProps.opacity))
@@ -236,21 +248,30 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
   }
 
   const setUpGraph = (
-    rootRef: React.RefObject<SVGSVGElement>, 
-    tipRef: React.RefObject<HTMLDivElement>, 
+    rootRef: React.RefObject<SVGSVGElement>,
+    yAxisRef: React.RefObject<SVGSVGElement>, 
+    tipRef: React.RefObject<HTMLDivElement>,
     dataSet: ICoinData[], 
-    showPer: TimeDividers
+    showPer: TimeDividers,
+    items: number
   ): void => {
     // reset previous graph
     d3.select(rootRef.current).selectAll("g").remove()
+    d3.select(yAxisRef.current).selectAll("g").remove()
     
-    // set up the root point of the graph
+    // set up the root point of the graph and the width of it
+    width = generateWidth(items)
     const svg = d3.select(rootRef.current)
-      //@ts-ignore
-      .attr("viewBox", [0, 0, width, height]);
+      .attr("height", height)
+      .attr("width", width) as d3.Selection<SVGSVGElement, unknown, null, undefined>
     
+    // set up the root point of the yAxis svg
+    const svgYAxis = d3.select(yAxisRef.current)
+      .attr("height", height)
+      .attr("width", "100%") as d3.Selection<SVGSVGElement, unknown, null, undefined>
+
     // set up the div tooltip reference for d3
-    const tooltip = d3.select(tooltipRef.current)
+    const tooltip = d3.select(tipRef.current)
 
     // set x axis and return a scale band function for positioning values.
     const xValues = dataSet.map(item => item.time)
@@ -259,7 +280,7 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
     // set y axis and return a scale linear function for positioning values.
     const yMaxValue = d3.max(dataSet, d => d.high) as number
     const yMinValue = d3.min(dataSet, d => d.low) as number
-    const y = setYAxis(svg, yMaxValue, yMinValue)
+    const y = setYAxis(svgYAxis, yMaxValue, yMinValue)
 
     // set y axis specific for the volumes graph
     const volumeYTopValue = d3.max(dataSet, d => d.volumeFrom) as number
@@ -274,12 +295,18 @@ export const CryptoGraphic = ({data, divideXIn}: IProps) => {
   useEffect(() => {
     if(data && divideXIn) {
       const dataset = data.historical
-      if(dataset.length > 0) setUpGraph(graphRef, tooltipRef, dataset, divideXIn)
+      const numberOfItems = dataset.length
+      if(dataset.length > 0) setUpGraph(graphRef, yAxisRef, tooltipRef, dataset, divideXIn, numberOfItems)
     }
   }, [data])
 
-  return <div className="cryptoGraphic">
-    <svg ref={graphRef}></svg>
+  return <div className="cryptoGraphic" style={{height: height + 25, overflowY: "hidden", marginLeft: 20}}>
+    <div className="graphYAxis" style={{width: "100%"}}>
+      <svg ref={yAxisRef}></svg>
+    </div>
+    <div className="graph" style={{position: "relative", top:-height-4, overflowX: "scroll", marginRight: margin.right}}>
+      <svg ref={graphRef}></svg>
+    </div>
     <div className="svg-tooltip" ref={tooltipRef}></div>
   </div>
 }

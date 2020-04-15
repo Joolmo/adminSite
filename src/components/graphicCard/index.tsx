@@ -120,7 +120,7 @@ export const GraphicCard = () => {
                     ))
                 }
             </div>
-            <CryptoGraphic data={data} divideXIn={timeDivider}/>
+            <CryptoGraphic data={data} timeDivider={timeDivider}/>
         </Card>
     )
 }

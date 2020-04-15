@@ -24,7 +24,6 @@
                         font-size: 11px;
                         color: #000000;
                         opacity: 0.4;
-                    
                     }
                 }
 
@@ -83,23 +82,22 @@
                     }
                 }
             }
+
             &:nth-child(2) {
                 margin: auto;
                 display: flex;
+
                 div {
                     padding: 0px 13px;
+                    font-size: 11px;
 
                     span:nth-child(1) {
                         color: #000000;
-                        font-size: 11px;
                         opacity: 0.4;
                         padding-right: 10px;
                     }
 
-                    span:nth-child(2) {
-                        color: #1F263E;
-                        font-size: 11px;
-                    }
+                    span:nth-child(2) { color: #1F263E; }
                 }
             }
         }

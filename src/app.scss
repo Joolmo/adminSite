@@ -22,6 +22,17 @@
         grid-area: item-toolbar;
         display: none;
     }
+
+    article .sectionContainer {
+        display: flex;
+        flex-flow: row nowrap;
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+
+    section {
+        margin: 10px;
+    }
 }
 
 @media (min-width: $desktop-size) {

@@ -39,8 +39,13 @@ export const HistoricalCoinService = async ({getPer = TimeDividers.day, limit = 
         }
     })
 
-    if(!response.error) {  return parseResponse(response) }
-    else {
+    if(!response.error) {
+        try { return parseResponse(response) }
+        catch(error) { 
+            // handle error
+            throw error // temporal
+        }   
+    } else {
         // handle error
         throw response.error // temporal
     }

@@ -5,6 +5,7 @@ import { NavItem } from './navItem'
 import { MoneyCardSection } from './moneyCardSection'
 import { CryptoGraphic } from './cryptoGraphic'
 import { GraphicCard } from './graphicCard'
+import { NewsCard } from './newsCard'
 
 export {
     Header,
@@ -14,4 +15,5 @@ export {
     MoneyCardSection,
     CryptoGraphic,
     GraphicCard,
+    NewsCard,
 }

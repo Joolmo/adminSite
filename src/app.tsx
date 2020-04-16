@@ -6,6 +6,8 @@ import {
   GraphicCard
 } from 'components'
 import './app.scss';
+import { NewsSection } from 'components/newsSection';
+import { Card } from 'containers';
 
 export const App = () => {
   return (
@@ -16,9 +18,11 @@ export const App = () => {
       <main>
         <article>
           <MoneyCardSection/>
-          <section>
-            <GraphicCard/>
-          </section>
+          <GraphicCard/>
+          <div className="sectionContainer">
+            <NewsSection/>
+            <NewsSection/>
+          </div>
         </article>
       </main>
 

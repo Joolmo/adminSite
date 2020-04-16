@@ -2,15 +2,12 @@ import React from 'react';
 import {
   Header,
   Toolbar,
-  MoneyCardSection
+  MoneyCardSection,
+  GraphicCard
 } from 'components'
 import './app.scss';
 
-
 export const App = () => {
-
-
-
   return (
     <div id="app">
       <Header />
@@ -19,6 +16,9 @@ export const App = () => {
       <main>
         <article>
           <MoneyCardSection/>
+          <section>
+            <GraphicCard/>
+          </section>
         </article>
       </main>
 

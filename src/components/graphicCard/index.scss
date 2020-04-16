@@ -1,0 +1,134 @@
+.cryptoCard {
+    max-width: 871px;
+    margin: auto;
+    padding-left: 0;
+    padding-right: 0;
+
+    .graphHeader {
+        padding: 5px 20px 15px 20px;
+
+        & > div {
+            div, li {
+                padding: 0px 10px;
+                
+                span {
+                    &:nth-child(1) {
+                        position: relative;
+                        top: -5px;
+                        padding-right: 5px;
+                        font-size: 15px;
+                        color: #000A12;
+                    }
+
+                    &:nth-child(2) {
+                        font-size: 11px;
+                        color: #000000;
+                        opacity: 0.4;
+                    }
+                }
+
+                i {
+                    margin-left: 8px;
+                    color: #50B8E4;
+                }
+            }
+
+            ul {
+                margin: 10px 0px 0px -5px;
+                display: none;
+                flex-flow: column nowrap;
+                position: absolute;
+                box-shadow: 0 15px 30px -10px transparentize(#000, 0.9);
+                padding: 0;
+
+                li {
+                    z-index: 10;
+                    list-style: none;
+                    padding: 7px 20px;
+                    background-color: white;
+                }
+
+                &.toggled {
+                    display: flex;
+                }
+            }
+        }
+    }
+
+    .infoContainer {
+        display: flex;
+        justify-content: space-between;
+        border: 0.7px solid #DFE5F9;
+        background: #FAFBFF;
+        padding: 15px 20px;
+
+        & > div {
+            &:nth-child(1) {
+                display: flex;
+                padding: 0 10px;
+                align-items: center;
+    
+                span {
+                    padding: 0 5px;
+                    
+                    &:nth-child(1) { font-size: 18px; }
+                    &:nth-child(2) { 
+                        font-size: 11px;
+                        color: green;
+    
+                        &.shrinking {
+                            color: red
+                        }
+                    }
+                }
+            }
+
+            &:nth-child(2) {
+                margin: auto;
+                display: flex;
+
+                div {
+                    padding: 0px 13px;
+                    font-size: 11px;
+
+                    span:nth-child(1) {
+                        color: #000000;
+                        opacity: 0.4;
+                        padding-right: 10px;
+                    }
+
+                    span:nth-child(2) { color: #1F263E; }
+                }
+            }
+        }
+    }
+
+    .buttonContainer {
+        padding: 10px 0 0 0;
+
+        .timeButton {
+            &:focus { outline: none; }
+
+            padding: 0px 18px;
+            background-color: transparent;
+            border: none;
+            color: #1F263E;
+            opacity: 0.4;
+
+            &.selected {
+                color: "#1F263E";
+                opacity: 1;
+
+                &::after {
+                    content: "";
+                    float: left;
+                    background: linear-gradient(29.89deg, #0043FF 25.69%, #A370F1 105.3%);
+                    width: 100%;
+                    height: 3px;
+                    border-radius: 1.5px;
+                    margin-top: 5px;
+                }
+            }
+        }
+    }
+}

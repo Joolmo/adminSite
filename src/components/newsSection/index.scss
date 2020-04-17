@@ -10,12 +10,13 @@
             display: flex;
             flex-flow: row nowrap;
             justify-content: space-between;
-            align-items: center;
+            align-items: baseline;
     
             h2 {
                 font-size: 15px;
                 color: #000A12;
                 font-weight: bold;
+                margin-top: 0;
     
                 &::before {
                     content: " ";

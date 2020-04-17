@@ -3,11 +3,12 @@ import {
   Header,
   Toolbar,
   MoneyCardSection,
-  GraphicCard
+  GraphicCard,
+  LastestActivities
 } from 'components'
 import './app.scss';
 import { NewsSection } from 'components/newsSection';
-import { Card } from 'containers';
+
 
 export const App = () => {
   return (
@@ -20,7 +21,7 @@ export const App = () => {
           <MoneyCardSection/>
           <GraphicCard/>
           <div className="sectionContainer">
-            <NewsSection/>
+            <LastestActivities/>
             <NewsSection/>
           </div>
         </article>

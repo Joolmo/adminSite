@@ -82,6 +82,7 @@ export const Header = () => {
 
                 <h3>Service</h3>
                 <ul> {renderItems(serviceSection)} </ul>
+                
                 <h3>Account</h3>
                 <ul> {renderItems(accountSection)} </ul>
             </nav>

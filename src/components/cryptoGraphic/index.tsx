@@ -68,7 +68,7 @@ export const CryptoGraphic = ({data, timeDivider}: IProps) => {
       case TimeDividers.month: 
         tickValues = xValues.filter(item => {
           const date = new Date(item * 1000)
-          return date.getDate() === 0
+          return date.getDate() === 1
         }).map(item => item.toString())
 
         tickFormat = item => {

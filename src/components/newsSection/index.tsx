@@ -17,14 +17,14 @@ export const NewsSection = () => {
     },[])
 
     return (
-        <section>
-            <Card className="newsSection">
+        <section className="newsSection">
+            <Card className="newsSectionCard">
                 <div className = "newsHeader">
                     <h2>Crypto Newsfeed</h2>
                     <button>Subscribe</button>
                 </div>
                 <div className = "newsList">
-                    { news.slice(0,9).map(news => <NewsCard news={news}/>)}
+                    { news.slice(0,4).map(news => <NewsCard news={news}/>) }
                 </div>
             </Card>
         </section>

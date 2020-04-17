@@ -20,6 +20,7 @@ export interface INews {
     url: string,
     date: Date,
     tags: string[]
+    categories: string[]
 }
 
 export enum TimeDividers{

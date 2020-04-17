@@ -48,4 +48,17 @@
             padding: 10px;
         }
     }
+
+    // colors 
+    &.bitcoin{
+        div:nth-child(2) { background: linear-gradient(134.73deg, #B53737 -3.41%, #FF9900 100%); }
+    }
+
+    &.trading {
+        div:nth-child(2) { background:linear-gradient(300.76deg, #4BF2E6 -15.61%, #0065FF 94.92%); }
+    }
+
+    &.monero {
+        div:nth-child(2) { background:linear-gradient(300.76deg, #FF6600 -15.61%, #4C4C4C 94.92%); }
+    }
 }

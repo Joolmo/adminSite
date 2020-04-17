@@ -11,6 +11,7 @@ export const NewsFeedService = async (): Promise<INews[]> => {
             body: item.body,
             url: item.guid,
             tags: (item.tags as string).split("|"),
+            categories: (item.categories as string).split("|")
         }))
     }
 

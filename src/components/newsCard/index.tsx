@@ -8,20 +8,21 @@ interface IProps {
 }
 
 export const NewsCard = ({news}: IProps) => {
-   /* const selectColor = (tags: string[]): string => {
-        // Card styles ordered by weight, if a new have two keyWords the one with more weight will be chosen
-        const cardStyles = [
-            {className: "danger", keyWord: "coronavirus"},
-            {className: "bitcoin", keyWord: "BTC"}
-        ]
-        
-        tags.reduce((acum, item) => {
-            car
-        }, {})
-    }*/
+    const selectColor = (): string => {
+        switch (news.categories[0]) {
+            case "BTC":
+                return "bitcoin"
+            case "Trading":
+                return "trading"
+            case "XMR":
+                return "monero"
+            default:
+                return ""
+        }
+    }
 
     const body = (): string => {
-        if(news.body.length > 170) {
+        if(news.body.length > 200) {
             return news.body.split(" ")
                 .slice(0,16)
                 .reduce((acum, item) => `${acum} ${item}`,"")
@@ -40,14 +41,14 @@ export const NewsCard = ({news}: IProps) => {
     }
 
     return (
-        <div className="newsCard">
+        <div className={`newsCard ${selectColor()}`}>
             <div>
                 <span>{date()}</span>
                 <h3>{news.title}</h3>
                 <p>{body()}</p>
             </div>
             <div>
-                <span>Security</span>
+                <span>{news.categories[0]}</span>
             </div>
         </div>
     )

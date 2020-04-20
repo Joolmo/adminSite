@@ -14,10 +14,18 @@ export interface ICoinData {
     close: number
 }
 
+export interface INews {
+    title: string,
+    body: string,
+    url: string,
+    date: Date,
+    tags: string[]
+    categories: string[]
+}
+
 export enum TimeDividers{
     max = 1,
     month, 
     day,
     hour,
-  }
-  
+}

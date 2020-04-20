@@ -67,60 +67,62 @@ export const GraphicCard = () => {
     }
 
     return (
-        <Card className="cryptoCard">
-            <div className="graphHeader">
-                <div>
+        <section>
+            <Card className="cryptoCard">
+                <div className="graphHeader">
                     <div>
-                        <span>{crypto}</span>
-                        <span>/{currency}</span>
-                        <i className="fa fa-angle-down" onClick={() => setcoinDDToggle(true)}></i>
-                    </div>
-                    <ul className={coinDDToggled ? "toggled" : "notToggled"}>
-                        {coins.map(item => <li onClick={() => {
-                            setCrypto(item.crypto)
-                            setCurrency(item.currency)
-                            setcoinDDToggle(false)
-                        }}>
-                            <span>{item.crypto}</span>
-                            <span>/{item.currency}</span>
-                        </li>)}
-                    </ul>
-                </div>
-            </div>
-            <div className="infoContainer">
-                <div>
-                    <span>{data?.historical[data.historical.length - 1].close.toFixed(2)}</span>
-                    <span className={`${getPercent() > 0 ? "growing" : "shrinking"}`}>{getPercent().toFixed(2)}%</span>
-                </div>
-                <div>
-                    <div>
-                        <span>High:</span>
-                        <span>{Math.max(...(data ? data.historical.map(item => item.high) : [0])).toFixed(2)}</span>
-                    </div>
-                    <div>
-                        <span>Low:</span>
-                        <span>{Math.min(...(data ? data.historical.map(item => item.low) : [0])).toFixed(2)}</span>
-                    </div>
-                    <div>
-                        <span>24h Volume:</span>
-                        <span>{(data ? data.historical.reduce((acum, item) => acum + item.volumeTo, 0) : 0).toFixed(2)}</span>    
+                        <div>
+                            <span>{crypto}</span>
+                            <span>/{currency}</span>
+                            <i className="fa fa-angle-down" onClick={() => setcoinDDToggle(true)}></i>
+                        </div>
+                        <ul className={coinDDToggled ? "toggled" : "notToggled"}>
+                            {coins.map(item => <li onClick={() => {
+                                setCrypto(item.crypto)
+                                setCurrency(item.currency)
+                                setcoinDDToggle(false)
+                            }}>
+                                <span>{item.crypto}</span>
+                                <span>/{item.currency}</span>
+                            </li>)}
+                        </ul>
                     </div>
                 </div>
-            </div>
-            <div className="buttonContainer">
-                { Object.keys(TimeDividers).filter((key: any) => !isNaN(Number(TimeDividers[key])))
-                    .map((item:any) => (
-                        <button
-                            className={`timeButton ${timeDivider === Number(TimeDividers[item]) ? "selected" : ""}`}
-                            onClick={() => {
-                                setTimeDivider(Number(TimeDividers[item]))
-                                setCoinLimit(Number(TimeDividers[item]) === TimeDividers.max ? 2000 : 250)
-                            }}
-                        >{item}</button>
-                    ))
-                }
-            </div>
-            <CryptoGraphic data={data} timeDivider={timeDivider}/>
-        </Card>
+                <div className="infoContainer">
+                    <div>
+                        <span>{data?.historical[data.historical.length - 1].close.toFixed(2)}</span>
+                        <span className={`${getPercent() > 0 ? "growing" : "shrinking"}`}>{getPercent().toFixed(2)}%</span>
+                    </div>
+                    <div>
+                        <div>
+                            <span>High:</span>
+                            <span>{Math.max(...(data ? data.historical.map(item => item.high) : [0])).toFixed(2)}</span>
+                        </div>
+                        <div>
+                            <span>Low:</span>
+                            <span>{Math.min(...(data ? data.historical.map(item => item.low) : [0])).toFixed(2)}</span>
+                        </div>
+                        <div>
+                            <span>24h Volume:</span>
+                            <span>{(data ? data.historical.reduce((acum, item) => acum + item.volumeTo, 0) : 0).toFixed(2)}</span>    
+                        </div>
+                    </div>
+                </div>
+                <div className="buttonContainer">
+                    { Object.keys(TimeDividers).filter((key: any) => !isNaN(Number(TimeDividers[key])))
+                        .map((item:any) => (
+                            <button
+                                className={`timeButton ${timeDivider === Number(TimeDividers[item]) ? "selected" : ""}`}
+                                onClick={() => {
+                                    setTimeDivider(Number(TimeDividers[item]))
+                                    setCoinLimit(Number(TimeDividers[item]) === TimeDividers.max ? 2000 : 250)
+                                }}
+                            >{item}</button>
+                        ))
+                    }
+                </div>
+                <CryptoGraphic data={data} timeDivider={timeDivider}/>
+            </Card>
+        </section>
     )
 }

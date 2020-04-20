@@ -3,9 +3,12 @@ import {
   Header,
   Toolbar,
   MoneyCardSection,
-  GraphicCard
+  GraphicCard,
+  LastestActivities
 } from 'components'
 import './app.scss';
+import { NewsSection } from 'components/newsSection';
+
 
 export const App = () => {
   return (
@@ -16,9 +19,11 @@ export const App = () => {
       <main>
         <article>
           <MoneyCardSection/>
-          <section>
-            <GraphicCard/>
-          </section>
+          <GraphicCard/>
+          <div className="sectionContainer">
+            <LastestActivities/>
+            <NewsSection/>
+          </div>
         </article>
       </main>
 

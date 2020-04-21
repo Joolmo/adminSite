@@ -28,9 +28,7 @@
         flex-flow: row wrap;
     }
 
-    section {
-        margin: 10px;
-    }
+    section { margin: 10px; }
 }
 
 @media (min-width: $desktop-size) {
@@ -49,6 +47,12 @@
             height: 100%;
         }
 
+        #toolbar {
+            display: flex;
+            position: sticky;
+            top: 0;
+        }
+
         article .sectionContainer {
             margin-left: 30px;
             margin-right: 30px;
@@ -57,7 +61,5 @@
 }
 
 @media (min-width: 900px){
-    #app article .sectionContainer {
-        flex-flow: row nowrap; 
-    }
+    #app article .sectionContainer { flex-flow: row nowrap; }
 }

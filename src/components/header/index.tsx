@@ -53,7 +53,7 @@ export const Header = () => {
     ]
 
     const renderItems = (items: any[]) => {
-        return items.map((item) => {
+        return items.map((item, index) => {
             let { navItems, ...props} = item
             
             return (
@@ -61,6 +61,7 @@ export const Header = () => {
                     {...props}
                     onClick={ navItems ? undefined : (arg: string) => setCurrentPage(arg)}
                     active={currentPage === props.label}
+                    key={index}
                 >
                     { navItems && renderItems(navItems) }
                 </NavItem>

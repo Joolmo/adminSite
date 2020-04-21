@@ -24,7 +24,7 @@ export const NewsSection = () => {
                     <button>Subscribe</button>
                 </div>
                 <div className = "newsList">
-                    { news.slice(0,4).map(news => <NewsCard news={news}/>) }
+                    { news.slice(0,4).map((news, index) => <NewsCard key={index} news={news}/>) }
                 </div>
             </Card>
         </section>

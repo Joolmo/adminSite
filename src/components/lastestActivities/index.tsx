@@ -24,7 +24,7 @@ export const LastestActivities = () => {
                 <div className="activitiesHeader">
                     <h2>Lastest Activities</h2>
                     <div>
-                        { coins.map((coin, index) => <button className={!index ? "selected" : undefined}>{coin}</button>) }
+                        { coins.map((coin, index) => <button key={index} className={!index ? "selected" : undefined}>{coin}</button>) }
                     </div>
                 </div>
                 <div className="activitiesContent">
@@ -34,8 +34,8 @@ export const LastestActivities = () => {
                         <span>Price</span>
                     </div>
                     <ul>
-                        { activities.map(({date, detail, price, className}) => (
-                            <li className={className}>
+                        { activities.map(({date, detail, price, className}, index) => (
+                            <li className={className} key={index}>
                                 <span>{date}</span>
                                 <span>{detail}</span>
                                 <span>{price}</span>

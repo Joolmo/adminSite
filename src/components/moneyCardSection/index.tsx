@@ -50,14 +50,15 @@ export const MoneyCardSection = () => {
 
   return <section className="moneyCardSection">
     {
-      config.map((itemConfig) => <div>
-        { itemConfig.map(({crypto, name, color, image}: ICardConfig) =>
+      config.map((itemConfig, divIndex) => <div key={`div${divIndex}`}>
+        { itemConfig.map(({crypto, name, color, image}: ICardConfig, cardIndex: number) =>
           <MoneyCard
             request={() => HistoricalCoinService({ crypto: crypto, currency: "EUR" })}
             name={name}
             contraction={crypto}
             color={color}
             image={image}
+            key={`card${cardIndex}`}
           />
         )}
       </div>

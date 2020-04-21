@@ -77,7 +77,7 @@ export const GraphicCard = () => {
                             <i className="fa fa-angle-down" onClick={() => setcoinDDToggle(true)}></i>
                         </div>
                         <ul className={coinDDToggled ? "toggled" : "notToggled"}>
-                            {coins.map(item => <li onClick={() => {
+                            { coins.map((item, index) => <li key={index} onClick={() => {
                                 setCrypto(item.crypto)
                                 setCurrency(item.currency)
                                 setcoinDDToggle(false)
@@ -117,6 +117,7 @@ export const GraphicCard = () => {
                                     setTimeDivider(Number(TimeDividers[item]))
                                     setCoinLimit(Number(TimeDividers[item]) === TimeDividers.max ? 2000 : 250)
                                 }}
+                                key={Number(TimeDividers[item]) }
                             >{item}</button>
                         ))
                     }

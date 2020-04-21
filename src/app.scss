@@ -25,7 +25,7 @@
 
     article .sectionContainer {
         display: flex;
-        flex-flow: row nowrap;
+        flex-flow: row wrap;
         margin-left: 30px;
         margin-right: 30px;
     }
@@ -50,5 +50,11 @@
             width: $sidebarWidth;
             height: 100%;
         }
+    }
+}
+
+@media (min-width: 900px){
+    #app article .sectionContainer {
+        flex-flow: row nowrap; 
     }
 }

@@ -15,9 +15,8 @@ export const NewsFeedService = async (): Promise<INews[]> => {
         }))
     }
 
-    const path = "v2/news/?lang=EN"
-    const response = await CryptoDataSrc({path}) // no arguments for this call
-
+    const path = "v2/news/"
+    const response = await CryptoDataSrc({path}) // no params for this call
     if(!response.error) {
         try { return parseResponse(response) }
         catch(error) { 

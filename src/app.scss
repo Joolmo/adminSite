@@ -26,8 +26,6 @@
     article .sectionContainer {
         display: flex;
         flex-flow: row wrap;
-        margin-left: 30px;
-        margin-right: 30px;
     }
 
     section {
@@ -49,6 +47,11 @@
             position: fixed;
             width: $sidebarWidth;
             height: 100%;
+        }
+
+        article .sectionContainer {
+            margin-left: 30px;
+            margin-right: 30px;
         }
     }
 }

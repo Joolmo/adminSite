@@ -7,7 +7,7 @@
         .activitiesHeader {
             display: flex;
             flex-flow: column nowrap;
-            padding: 0px 30px 20px 30px;
+            padding: 0px 5% 20px 5%;
             
             h2 {
                 margin: 0 0 15px 0;
@@ -73,9 +73,7 @@
                 span {
                     flex: 1;
 
-                    &:nth-child(3) {
-                        text-align: right;
-                    }
+                    &:nth-child(3) { text-align: right; }
                 }
             }
 
@@ -128,9 +126,7 @@
                     color: white;
                 }
 
-                i {
-                    color: #50B8E4
-                }
+                i { color: #50B8E4 }
             }
         }
     }

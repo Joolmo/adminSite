@@ -90,7 +90,7 @@ export const MoneyCard = ({ name, contraction, image, color, request }: IProps) 
                     <span className={`price ${isGrowing ? "growing" : "reducing"}`}>{`${change.toFixed(2)}%`}</span>
                 </div>
             </div>
-            <canvas ref={chartRef} id="chart" width="270" height="80" />
+            <canvas ref={chartRef} id="chart" height="80" />
         </Card>
     )
 }

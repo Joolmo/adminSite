@@ -10,11 +10,21 @@ $marginRight: 50px;
 
   .display {
     width: 100%;
+    display: flex;
+    flex-flow: nowrap row;
+
+    svg:nth-child(1) {
+      width: 100%;
+    }
+
+    svg:nth-child(2) {
+      width: $marginRight;
+    }
   }
 
   .content {
     position: relative;
-    top: -$displayHeight - 4px;
+    top: -$displayHeight;
     overflow-x: scroll; 
     margin-right: $marginRight;
   }

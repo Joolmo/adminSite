@@ -104,7 +104,7 @@ export const GraphicCard = () => {
                         </div>
                         <div>
                             <span>24h Volume:</span>
-                            <span>{(data ? data.historical.reduce((acum, item) => acum + item.volumeTo, 0) : 0).toFixed(2)}</span>    
+                            <span>{(data ? data.historical.reduce((acum, item) => acum + item.volumeFrom, 0) : 0).toFixed(2)}</span>    
                         </div>
                     </div>
                 </div>

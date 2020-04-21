@@ -1,5 +1,5 @@
 .cryptoCard {
-    width: calc(100vw - 80px);
+    width: calc(100vw - 20px);
     margin: auto;
     padding-left: 0;
     padding-right: 0;
@@ -136,6 +136,7 @@
 
 @media (min-width: 700px) {
     .cryptoCard {
-        width: calc(100vw - 314px);
+        //width: calc(100vw - 297px); // useful on mobile devices that don't have a scroll bar.
+        width: calc(100vw - 314px); // given the width of the scroll bar on desktop computers.
     }
 }

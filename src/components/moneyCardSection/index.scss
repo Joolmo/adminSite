@@ -1,10 +1,109 @@
 .moneyCardSection {
-    &, & > div {
-        display: flex;
-        flex: 1;
-        flex-flow: row wrap;
-        justify-content: space-around;
-    }
+    display: flex;
+    flex-flow: column nowrap;
+    overflow: hidden;
 
-    & > div > div { margin-top: 30px; }
+    & > div {
+        display: flex;
+        flex-flow: row nowrap; 
+        width: calc(100vw - 20px);
+        margin: auto;
+
+        &:nth-child(1) {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+
+            div:nth-child(1) {
+                display: flex;
+                flex-flow: row nowrap;
+                margin-left: 13px;
+
+                span {
+                    display: flex;
+                    flex-flow: nowrap row;
+                    margin-right: 8px;
+                    font-size: 11px;
+                    color: #1F263E;
+                }
+                
+                span::before {
+                    content: " ";
+                    display: block;
+                    position: relative;
+                    left: -5px;
+                    top: 2px;
+                    width: 8px;
+                    height: 8px;
+                    background: #1F263E;
+                    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+                }
+
+                span.selected {
+                    color: #1348FC;
+                    font-weight: 300;
+
+                    &::after {
+                        content: " ";
+                        display: block;
+                        position: relative;
+                        top: 2px;
+                        right: -5px;
+                        width: 8px;
+                        height: 8px;
+                        background: linear-gradient(122.37deg, #0043FF -6.89%, #A370F1 100%);
+                        clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+                    }
+                }
+            }
+
+            div:nth-child(2) {
+                display: flex;
+                flex-flow: row nowrap; 
+                
+                button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: #50B8E4;
+                    background: #FFFFFF;
+                    border: 0.7px solid rgba(48, 55, 80, 0.08);
+                    border-radius: 4px;
+                    padding: 8px 14px;
+                    margin-left: 10px;
+
+                    &:focus { outline: none; }
+                    &.layoutButton {
+                        padding: 5px
+                    }
+                }
+            }
+        }
+
+        &.headband {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+
+            &::-webkit-scrollbar { display: none; }
+
+            & > div {
+                scroll-snap-align: center;
+                margin: 0px 13.5px;
+            }
+        }
+    }
+}
+
+@media (min-width: 700px) {
+    .moneyCardSection > div{
+        //width: calc(100vw - 297px); // useful on mobile devices that don't have a scroll bar.
+        width: calc(100vw - 314px); // given the width of the scroll bar on desktop computers.
+
+        &.headband > div {
+            margin-left: 0;
+            margin-right: 27px;
+            scroll-snap-align: start;
+        }
+    }
 }

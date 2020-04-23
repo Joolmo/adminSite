@@ -43,7 +43,10 @@ export const MoneyCard = ({ name, contraction, image, color, request }: IProps) 
                     xAxes: [{ display: false }],
                     yAxes: [{ display: false }]
                 },
-                elements: { point: { radius: 0 } }
+                elements: { point: { radius: 0 } },
+                tooltips: {
+                    enabled: false
+               },
             }
         })
     }
@@ -79,7 +82,7 @@ export const MoneyCard = ({ name, contraction, image, color, request }: IProps) 
         <Card className="moneyCard">
             <div className="moneyContent">
                 <div>
-                    <img src={image} alt={name} />
+                    <img src={image} alt={name} width="22" height="22" />
                     <div>
                         <span>{contraction}</span>
                         <span className="title">{name}</span>

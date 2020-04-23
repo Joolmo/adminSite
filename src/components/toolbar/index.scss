@@ -19,10 +19,11 @@
         }
 
         div {
+            display: none;
+
             img {
                 position: relative;
                 left: -220px;
-                top: 5px;
             }
 
             input {
@@ -45,5 +46,11 @@
                 }
             }
         }
+    }
+}
+
+@media (min-width: 860px) {
+    #toolbar > div > div {
+        display: flex;
     }
 }

@@ -69,12 +69,12 @@ export const MoneyCard = ({ name, contraction, image, color, request }: IProps) 
             .then(({ data, change, price }) => {
                 const canvas = chartRef.current?.getContext("2d")
 
-                if (canvas) { setUpChart(canvas, color, data) }
-                else { console.error("It is not possible for the app to render the charts.") }
-
                 setChange(change.quantity)
                 setGrowing(change.isGrowing)
                 setPrice(price)
+
+                if (canvas) { setUpChart(canvas, color, data) }
+                else { console.error("It is not possible for the app to render the charts.") }
             })
     }, [color, request])
 

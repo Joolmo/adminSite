@@ -24,6 +24,10 @@
             color: #42434B;
             margin-top: 20px;
             margin-bottom: 3px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
         }
     
         p {
@@ -32,6 +36,10 @@
             font-size: 12px;
             margin-top: 3px;
             margin-bottom: 0;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
         }
     }
 

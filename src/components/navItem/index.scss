@@ -6,14 +6,16 @@ $transtion-time: 0.3s;
 
 .nav-item {
     display: flex;
-    list-style: none;
     flex-flow: column nowrap;
+    list-style: none;
     color: $second-font-color;
+    line-height: 30px;
     width: 100%;
 
     & > div {
         display: flex;
         flex-flow: row nowrap;
+        align-items: center;
         padding: 10px 20px;
     
         span { margin-left: 15px; }
@@ -34,6 +36,10 @@ $transtion-time: 0.3s;
         padding-left: 15px;
         background-color: $hover-layer;
         border-left: solid 5px $highlighted-color;
+        
+        i {
+            color: $highlighted-color;
+        }
     }
 
     .nav-list {
@@ -47,4 +53,10 @@ $transtion-time: 0.3s;
 
     &.unToggled > .nav-list { max-height: 0px; }
     &.toggled > .nav-list { max-height: 500px; }
+}
+
+@media (min-width: $desktop-size) {
+    .nav-item {
+        line-height: normal;
+    }
 }

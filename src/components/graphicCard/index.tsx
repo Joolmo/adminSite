@@ -3,6 +3,7 @@ import { Card } from 'containers'
 import { CryptoGraphic } from 'components'
 import { HistoricalCoinService } from 'services/historicalCoinService'
 import { IHistoricalCoinData, TimeDividers } from 'interfaces'
+import bellIcon from 'assets/images/bellIcon.svg'
 import './index.scss'
 
 export const GraphicCard = () => {
@@ -87,6 +88,9 @@ export const GraphicCard = () => {
                             </li>)}
                         </ul>
                     </div>
+                    <div>
+                        <button>BUY</button>
+                    </div>
                 </div>
                 <div className="infoContainer">
                     <div>
@@ -106,6 +110,10 @@ export const GraphicCard = () => {
                             <span>24h Volume:</span>
                             <span>{(data ? data.historical.reduce((acum, item) => acum + item.volumeFrom, 0) : 0).toFixed(2)}</span>    
                         </div>
+                    </div>
+                    <div>
+                        <span>Price Alert</span>
+                        <img src={bellIcon}></img>
                     </div>
                 </div>
                 <div className="buttonContainer">

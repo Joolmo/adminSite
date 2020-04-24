@@ -44,4 +44,12 @@ $marginRight: 50px;
     visibility: hidden;
     transition:visibility 0.25s linear 0.25s,opacity 0.20s linear 0.20s;
   }
+
+  .infoDiv {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    left: calc(100% - 30px);
+    bottom: $displayHeight + 20px;
+  }
 }

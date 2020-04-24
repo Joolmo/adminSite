@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import * as d3 from 'd3'
 import { IHistoricalCoinData, ICoinData, TimeDividers } from 'interfaces';
+import infoIcon from 'assets/images/infoIcon.svg'
 import './index.scss'
   
 
@@ -278,7 +279,7 @@ export const CryptoGraphic = ({data, timeDivider}: IProps) => {
   }
 
   const setUpGraph = (
-    rootRef: React.RefObject<SVGSVGElement>,
+    contentRef: React.RefObject<SVGSVGElement>,
     yAxisRefNumbers:  React.RefObject<SVGSVGElement>,
     yAxisRefLines:  React.RefObject<SVGSVGElement>,
     tipRef: React.RefObject<HTMLDivElement>,
@@ -287,13 +288,13 @@ export const CryptoGraphic = ({data, timeDivider}: IProps) => {
     items: number
   ): void => {
     // reset previous graph
-    d3.select(rootRef.current).selectAll("g").remove()
+    d3.select(contentRef.current).selectAll("g").remove()
     d3.select(yAxisRefLines.current).selectAll("g").remove()
     d3.select(yAxisRefNumbers.current).selectAll("g").remove()
 
     // set up the root point of the content and the width of it
     contentProps.width = contentProps.generateWidth(items)
-    const contentSvg = d3.select(rootRef.current)
+    const contentSvg = d3.select(contentRef.current)
       .attr("height", displayProps.height)
       .attr("width", contentProps.width) as d3.Selection<SVGSVGElement, unknown, null, undefined>
     
@@ -357,6 +358,7 @@ export const CryptoGraphic = ({data, timeDivider}: IProps) => {
     <div className="content">
       <svg ref={graphContentRef}></svg>
     </div>
+    <div className="infoDiv"><img src={infoIcon} /></div>
     <div className="tooltip" ref={graphTooltipRef}></div>
   </div>
 }

@@ -128,7 +128,18 @@
                 }
 
                 i { color: #50B8E4 }
+
+                
+                &:nth-last-child(2) {
+                    display: none;
+                }
             }
         }
+    }
+}
+
+@media (min-width: 700px) {
+    .activitiesPagination button:nth-last-child(2) {
+        display: block;
     }
 }

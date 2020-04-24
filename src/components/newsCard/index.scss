@@ -44,7 +44,7 @@
     }
 
     div:nth-child(2) {
-        width: 133px;
+        width: 100px;
         display: flex;
         align-items: flex-end;
         justify-content: flex-end;
@@ -83,5 +83,11 @@
         background: url("../../assets/images/newsFeedSymbol.svg") no-repeat right bottom;
         z-index: 1;
         opacity: 0.6;
+    }
+}
+
+@media (min-width: 450px) {
+    .newsCard div:nth-child(2) {
+        width: 133px;
     }
 }

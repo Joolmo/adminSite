@@ -74,7 +74,7 @@
 
                     &:focus { outline: none; }
                     &.layoutButton {
-                        padding: 5px
+                        display: none;
                     }
                 }
             }
@@ -99,6 +99,11 @@
     .moneyCardSection > div{
         //width: calc(100vw - 297px); // useful on mobile devices that don't have a scroll bar.
         width: calc(100vw - 314px); // given the width of the scroll bar on desktop computers.
+
+        &:nth-child(1) div:nth-child(2) button.layoutButton {
+            display: block;
+            padding: 5px;
+        }
 
         &.headband > div {
             margin-left: 0;

@@ -49,7 +49,7 @@
     }
 }
 
-@media (min-width: 860px) {
+@media (min-width: $large-desktop-size) {
     #toolbar > div > div {
         display: flex;
     }

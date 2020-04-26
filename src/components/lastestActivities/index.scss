@@ -1,3 +1,5 @@
+@import "../../assets/styles/globalVariables.scss";
+
 .lastestActivities {
     width: 100%;
 
@@ -138,7 +140,7 @@
     }
 }
 
-@media (min-width: 700px) {
+@media (min-width: $desktop-size) {
     .lastestActivities .activitiesCard .activitiesPagination button:nth-last-child(2) {
         display: block;
     }

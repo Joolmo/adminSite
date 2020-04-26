@@ -1,3 +1,5 @@
+@import "../../assets/styles/globalVariables.scss";
+
 .newsCard {
     border: 0.7px solid #DFE5F9;
     border-radius: 12px;
@@ -86,7 +88,7 @@
     }
 }
 
-@media (min-width: 450px) {
+@media (min-width: $large-mobile-size) {
     .newsCard div:nth-child(2) {
         width: 133px;
     }

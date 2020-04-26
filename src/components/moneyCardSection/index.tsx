@@ -48,7 +48,7 @@ export const MoneyCardSection = () => {
         <span className="selected">Dashboard</span>
       </div>
       <div>
-        <button className="layoutButton"><img src={layoutIcon}></img></button>
+        <button className="layoutButton"><img src={layoutIcon} alt="layoutIcon" /></button>
         <button
           onClick={() => { moveHeadband(directions.left) }}
         ><i className= "fa fa-angle-left fa-lg"></i></button>

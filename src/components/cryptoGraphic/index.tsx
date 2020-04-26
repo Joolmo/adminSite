@@ -358,7 +358,7 @@ export const CryptoGraphic = ({data, timeDivider}: IProps) => {
     <div className="content">
       <svg ref={graphContentRef}></svg>
     </div>
-    <div className="infoDiv"><img src={infoIcon} /></div>
+    <div className="infoDiv"><img src={infoIcon} alt="info"/></div>
     <div className="tooltip" ref={graphTooltipRef}></div>
   </div>
 }

@@ -1,3 +1,6 @@
+@import "../../assets/styles/globalVariables.scss";
+
+
 .moneyCardSection {
     display: flex;
     flex-flow: column nowrap;
@@ -37,22 +40,22 @@
                         background: #1F263E;
                         clip-path: polygon(100% 0, 0% 100%, 100% 100%);
                     }
-                }
+     
+                    &.selected {
+                        color: #1348FC;
+                        font-weight: 300;
 
-                span.selected {
-                    color: #1348FC;
-                    font-weight: 300;
-
-                    &::after {
-                        content: " ";
-                        display: block;
-                        position: relative;
-                        top: 2px;
-                        right: -5px;
-                        width: 8px;
-                        height: 8px;
-                        background: linear-gradient(122.37deg, #0043FF -6.89%, #A370F1 100%);
-                        clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+                        &::after {
+                            content: " ";
+                            display: block;
+                            position: relative;
+                            top: 2px;
+                            right: -5px;
+                            width: 8px;
+                            height: 8px;
+                            background: linear-gradient(122.37deg, #0043FF -6.89%, #A370F1 100%);
+                            clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+                        }
                     }
                 }
             }
@@ -95,7 +98,7 @@
     }
 }
 
-@media (min-width: 700px) {
+@media (min-width: $desktop-size) {
     .moneyCardSection > div{
         //width: calc(100vw - 297px); // useful on mobile devices that don't have a scroll bar.
         width: calc(100vw - 314px); // given the width of the scroll bar on desktop computers.

@@ -1,3 +1,5 @@
+@import "../../assets/styles/globalVariables.scss";
+
 .cryptoCard {
     width: calc(100vw - 20px);
     margin: auto;
@@ -167,7 +169,7 @@
     }
 }
 
-@media (min-width: 700px) {
+@media (min-width: $desktop-size) {
     .cryptoCard {
         //width: calc(100vw - 297px); // useful on mobile devices that don't have a scroll bar.
         width: calc(100vw - 314px); // given the width of the scroll bar on desktop computers.

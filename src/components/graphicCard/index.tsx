@@ -78,7 +78,7 @@ export const GraphicCard = () => {
                             <i className="fa fa-angle-down" onClick={() => setcoinDDToggle(true)}></i>
                         </div>
                         <ul className={coinDDToggled ? "toggled" : "notToggled"}>
-                            { coins.map((item, index) => <li key={index} onClick={() => {
+                            { coins.map(item => <li key={`${item.crypto}/${item.currency}`} onClick={() => {
                                 setCrypto(item.crypto)
                                 setCurrency(item.currency)
                                 setcoinDDToggle(false)
@@ -113,7 +113,7 @@ export const GraphicCard = () => {
                     </div>
                     <div>
                         <span>Price Alert</span>
-                        <img src={bellIcon}></img>
+                        <img src={bellIcon} alt="bellIcon"></img>
                     </div>
                 </div>
                 <div className="buttonContainer">

@@ -17,7 +17,7 @@ export const Toolbar = () => {
                 <img src={boxIcon} alt="box"/>
                 <div>
                     <input placeholder="Type any cryptocurrency..."/>
-                    <img src={searchIcon} />
+                    <img src={searchIcon} alt="search"/>
                 </div>
             </div>
             <div>

@@ -5,7 +5,7 @@ import './index.scss'
 export const LastestActivities = () => {
     const coins = [
         "ALL", "BTC", "ETH", "XRP", "XEM", 
-        "LSK", "BTH", "FCT", "ETH", "JPY"
+        "LSK", "BTH", "FCT", "ETC", "JPY"
     ]
 
     const activities = [

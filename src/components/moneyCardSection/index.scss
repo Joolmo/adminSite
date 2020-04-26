@@ -25,18 +25,18 @@
                     margin-right: 8px;
                     font-size: 11px;
                     color: #1F263E;
-                }
                 
-                span::before {
-                    content: " ";
-                    display: block;
-                    position: relative;
-                    left: -5px;
-                    top: 2px;
-                    width: 8px;
-                    height: 8px;
-                    background: #1F263E;
-                    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+                    &::before {
+                        content: " ";
+                        display: block;
+                        position: relative;
+                        left: -5px;
+                        top: 2px;
+                        width: 8px;
+                        height: 8px;
+                        background: #1F263E;
+                        clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+                    }
                 }
 
                 span.selected {

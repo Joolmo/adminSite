@@ -23,6 +23,12 @@ export interface INews {
     categories: string[]
 }
 
+export interface ICoin {
+    crypto: string,
+    name: string,
+    image: string
+}
+
 export enum TimeDividers{
     max = 1,
     month, 

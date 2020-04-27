@@ -2,6 +2,55 @@
 
 #toolbar {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    z-index: 10;
     background-color: $main-color;
     box-shadow: 0px 8px 28px rgba(72, 89, 102, 0.1006);
+
+    & > div {
+        display: flex;
+        height: 100%;
+        align-items: center;
+
+        & > img, input {
+            margin: 0 15px;
+        }
+
+        div {
+            display: none;
+
+            img {
+                position: relative;
+                left: -220px;
+            }
+
+            input {
+                width: 175px;
+                border-radius: 15px;
+                padding: 7px 7px 7px 40px;
+                background-color: #F8F9FB;
+                border: none;
+                font-size: 11px;
+                color: #1F263E;
+
+                &:focus {
+                    border: none;
+                    outline: none;
+                }
+
+                &::placeholder {
+                    color: #1F263E;
+                    opacity: 0.25;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: $large-desktop-size) {
+    #toolbar > div > div {
+        display: flex;
+    }
 }

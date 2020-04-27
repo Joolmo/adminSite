@@ -1,3 +1,5 @@
+@import "../../assets/styles/globalVariables.scss";
+
 .lastestActivities {
     width: 100%;
 
@@ -7,7 +9,7 @@
         .activitiesHeader {
             display: flex;
             flex-flow: column nowrap;
-            padding: 0px 30px 20px 30px;
+            padding: 0px 5% 20px 5%;
             
             h2 {
                 margin: 0 0 15px 0;
@@ -42,6 +44,7 @@
                     border: none;
                     color: #1F263E;
                     opacity: 0.4;
+                    font-size: 11px;
                     padding: 0;
     
                     &.selected {
@@ -73,9 +76,7 @@
                 span {
                     flex: 1;
 
-                    &:nth-child(3) {
-                        text-align: right;
-                    }
+                    &:nth-child(3) { text-align: right; }
                 }
             }
 
@@ -128,10 +129,19 @@
                     color: white;
                 }
 
-                i {
-                    color: #50B8E4
+                i { color: #50B8E4 }
+
+                
+                &:nth-last-child(2) {
+                    display: none;
                 }
             }
         }
+    }
+}
+
+@media (min-width: $desktop-size) {
+    .lastestActivities .activitiesCard .activitiesPagination button:nth-last-child(2) {
+        display: block;
     }
 }

@@ -6,21 +6,37 @@ $transtion-time: 0.3s;
 
 .nav-item {
     display: flex;
-    list-style: none;
     flex-flow: column nowrap;
-    color: $second-font-color;
+    list-style: none;
     width: 100%;
 
     & > div {
         display: flex;
         flex-flow: row nowrap;
+        align-items: center;
         padding: 10px 20px;
-    
+
+        i:first-child, span {
+            color: white;
+            line-height: 30px;
+            opacity: 0.65;
+        }
+
+        span {
+            font-size: 13px;
+        }
+
+        i:first-child {
+            width: 20;
+            height: 20;
+        }
+        
         span { margin-left: 15px; }
 
         &:hover { background-color: $hover-layer; }
 
         .toggle {
+            color: $highlighted-color;
             margin: 0 0 0 auto;
             transition: transform $transtion-time ease-in-out;
             visibility: hidden;
@@ -34,6 +50,18 @@ $transtion-time: 0.3s;
         padding-left: 15px;
         background-color: $hover-layer;
         border-left: solid 5px $highlighted-color;
+        
+        i:first-child, span {
+            opacity: 1;
+        }
+
+        i {
+            color: $highlighted-color;
+        }
+
+        span {
+            font-weight: bold;
+        }
     }
 
     .nav-list {
@@ -47,4 +75,12 @@ $transtion-time: 0.3s;
 
     &.unToggled > .nav-list { max-height: 0px; }
     &.toggled > .nav-list { max-height: 500px; }
+}
+
+@media (min-width: $desktop-size) {
+    .nav-item > div {
+        i:first-child, span {
+            line-height: normal;
+        }
+    }
 }

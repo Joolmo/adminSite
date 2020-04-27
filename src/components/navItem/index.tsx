@@ -21,7 +21,7 @@ export const NavItem = ({ icon, onClick, label, children, active = false }: IPro
             }}>
                 {icon && <i className={`fa ${icon}`}></i>}
                 <span>{label}</span>
-                <i className="toggle fa fa-chevron-right"></i>
+                <i className="toggle fa fa-angle-right fa-lg"></i>
             </div >
             {children &&
                 <ul className="nav-list">

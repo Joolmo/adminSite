@@ -43,7 +43,10 @@ export const MoneyCard = ({ name, contraction, image, color, request }: IProps) 
                     xAxes: [{ display: false }],
                     yAxes: [{ display: false }]
                 },
-                elements: { point: { radius: 0 } }
+                elements: { point: { radius: 0 } },
+                tooltips: {
+                    enabled: false
+               },
             }
         })
     }
@@ -66,12 +69,12 @@ export const MoneyCard = ({ name, contraction, image, color, request }: IProps) 
             .then(({ data, change, price }) => {
                 const canvas = chartRef.current?.getContext("2d")
 
-                if (canvas) { setUpChart(canvas, color, data) }
-                else { console.error("It is not possible for the app to render the charts.") }
-
                 setChange(change.quantity)
                 setGrowing(change.isGrowing)
                 setPrice(price)
+
+                if (canvas) { setUpChart(canvas, color, data) }
+                else { console.error("It is not possible for the app to render the charts.") }
             })
     }, [color, request])
 
@@ -79,7 +82,7 @@ export const MoneyCard = ({ name, contraction, image, color, request }: IProps) 
         <Card className="moneyCard">
             <div className="moneyContent">
                 <div>
-                    <img src={image} alt={name} />
+                    <img src={image} alt={name} width="22" height="22" />
                     <div>
                         <span>{contraction}</span>
                         <span className="title">{name}</span>
@@ -90,7 +93,7 @@ export const MoneyCard = ({ name, contraction, image, color, request }: IProps) 
                     <span className={`price ${isGrowing ? "growing" : "reducing"}`}>{`${change.toFixed(2)}%`}</span>
                 </div>
             </div>
-            <canvas ref={chartRef} id="chart" width="270" height="80" />
+            <canvas ref={chartRef} id="chart" height="80" />
         </Card>
     )
 }

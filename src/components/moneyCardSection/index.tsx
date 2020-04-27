@@ -59,8 +59,8 @@ export const MoneyCardSection = () => {
     </div>
     <div className="headband" ref={scrollableRef}>
       {
-        cardsConfig.map(({crypto, name, image}: ICoin, index: number) =>
-          <Palette src={`https://cors-anywhere.herokuapp.com/${image}`} key={index}>
+        cardsConfig.map(({crypto, name, image}: ICoin) =>
+          <Palette src={`https://cors-anywhere.herokuapp.com/${image}`} key={crypto}>
             { ({data, loading, error}) => 
                 <MoneyCard
                   request={() => HistoricalCoinService({ crypto: crypto, currency: "EUR" })}
@@ -68,7 +68,7 @@ export const MoneyCardSection = () => {
                   contraction={crypto}
                   color={ !!data.vibrant ? data.vibrant : "#000000" }
                   image={image}
-                  key={index} 
+                  key={crypto} 
                 />
             }
           </Palette>

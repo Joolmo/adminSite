@@ -6,6 +6,10 @@ import { MoneyCard } from 'components'
 import layoutIcon from 'assets/images/layoutIcon.svg'
 import './index.scss'
 
+const startingListPoint = 50
+const endingListPoint = 56
+const requiredListCoins = ["XRP", "XEM", "ETH", "BTC"]
+
 
 export const MoneyCardSection = () => {
   const scrollableRef = useRef<HTMLDivElement>(null)
@@ -13,7 +17,7 @@ export const MoneyCardSection = () => {
   const [cardsConfig, setCardsConfig] = useState<ICoin[]>([])
 
   useEffect(() => {
-    AllCoinsService({start: 50, limit: 56, musts: ["XRP", "XEM", "ETH", "BTC"]})
+    AllCoinsService({start: startingListPoint, limit: endingListPoint, musts: requiredListCoins})
       .then(response => setCardsConfig(response))
   }, [])
 

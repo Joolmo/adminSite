@@ -1,4 +1,4 @@
-@import "./assets/styles/global-variables.scss";
+@import "./assets/styles/globalVariables.scss";
 
 #app {
     display: grid;
@@ -22,6 +22,18 @@
         grid-area: item-toolbar;
         display: none;
     }
+
+    article .sectionContainer {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    article > section:first-child {
+        padding-top: 30px;
+    }
+    section { 
+        padding: 10px;
+    }
 }
 
 @media (min-width: $desktop-size) {
@@ -39,5 +51,20 @@
             width: $sidebarWidth;
             height: 100%;
         }
+
+        #toolbar {
+            display: flex;
+            position: sticky;
+            top: 0;
+        }
+
+        article .sectionContainer {
+            margin-left: 30px;
+            margin-right: 30px;
+        }
     }
+}
+
+@media (min-width: $large-desktop-size){
+    #app article .sectionContainer { flex-flow: row nowrap; }
 }

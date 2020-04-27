@@ -5,6 +5,8 @@ header {
     flex-flow: column nowrap;
     background-color: $third-color;
 
+    hr { display: none }
+
     ul {
         list-style: none;
         margin: 0;
@@ -15,7 +17,7 @@ header {
         display: flex;
         justify-content: space-between;
         padding: 0 20px 0 20px;
-        z-index: 10; // 1 level above nav (slide down effect)
+        z-index: 100; // 1 level above nav (slide down effect)
         background-color: $third-color;
 
         h1 {
@@ -35,6 +37,7 @@ header {
         flex-flow: nowrap column;
         background-color: $third-color;
         transition: transform 0.3s ease-in-out;
+        z-index: 10;
 
         &.toggled {
             transform: translateY(0);
@@ -52,11 +55,29 @@ header {
 @media (min-width: $desktop-size) {
     header {
         background-color: $third-color;
-        justify-content: space-around;
+        justify-content: flex-start;
+
+        hr {
+            display: block;
+            margin: 0 auto;
+            width: 80%;
+            color: #F8F9FB;
+            opacity: 0.3;
+            height: 0.2px;
+        }
 
         #header {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            height: 65px;
+
             h1 {
-                font-size: x-large;
+                padding-left: 10px;
+                font-weight: 300;
+                font-size: 15px;
+                letter-spacing: 2px;
             }
 
             i {
@@ -65,7 +86,10 @@ header {
         }
 
         nav {
-            height: 90%;
+            display: flex;
+            flex: 1;
+            padding-bottom: 10px;
+            flex-flow: column nowrap;
             background-color: $third-color;
             transition: none; // Remove the slide effect of the mobile version
 
@@ -75,10 +99,20 @@ header {
             }
 
             h3 {
+                font-weight: bold;
+                font-size: 18px;
                 display: flex;
                 color: white;
-                margin-left: 20px;
+                margin-left: 25px;
                 margin-right: auto;
+            }
+
+            .bottomNav {
+                margin-top: auto;
+
+                hr {
+                    width: 100%;
+                }
             }
         }
     }

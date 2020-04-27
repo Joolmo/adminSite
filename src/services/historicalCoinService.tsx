@@ -1,14 +1,14 @@
 import { CryptoDataSrc } from './cryptoDataSrc'
-import { IHistoricalCoinData } from 'interfaces'
+import { IHistoricalCoinData, TimeDividers } from 'interfaces'
 
 interface IProps {
-    getPer?: "minute" | "hour" | "day",
+    getPer?: TimeDividers,
     limit?: number,
     crypto?: string,
     currency?: string
 }
 
-export const HistoricalCoinService = async ({getPer = "hour", limit = 24, crypto = "BTC", currency = "USD"}: IProps): Promise<IHistoricalCoinData> => {
+export const HistoricalCoinService = async ({getPer = TimeDividers.day, limit = 24, crypto = "BTC", currency = "USD"}: IProps): Promise<IHistoricalCoinData> => {
     const parseResponse = (response: any): IHistoricalCoinData => ({
             crypto: crypto,
             currency: currency,
@@ -24,9 +24,10 @@ export const HistoricalCoinService = async ({getPer = "hour", limit = 24, crypto
         })
     
     const endPoints = {
-        minute: "histominute",
-        hour: "histohour",
-        day: "histoday"
+        [TimeDividers.hour]: "histominute",
+        [TimeDividers.day]: "histohour",
+        [TimeDividers.month]: "histoday",
+        [TimeDividers.max]: "histoday",
     }
 
     const response = await CryptoDataSrc({
@@ -38,8 +39,13 @@ export const HistoricalCoinService = async ({getPer = "hour", limit = 24, crypto
         }
     })
 
-    if(!response.error) {  return parseResponse(response) }
-    else {
+    if(!response.error) {
+        try { return parseResponse(response) }
+        catch(error) { 
+            // handle error
+            throw error // temporal
+        }   
+    } else {
         // handle error
         throw response.error // temporal
     }

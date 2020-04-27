@@ -1,0 +1,95 @@
+@import "../../assets/styles/globalVariables.scss";
+
+.newsCard {
+    border: 0.7px solid #DFE5F9;
+    border-radius: 12px;
+    margin: 10px 0;
+    display: flex;
+    flex-flow: row nowrap;
+    outline: none;
+    text-decoration: none;
+
+    div:nth-child(1) {
+        flex: 1;
+        display: flex;
+        flex-flow: column nowrap;
+        padding: 5px 0px 5px 20px;
+    
+        span {
+            font-size: 11px;
+            color: #2A2B31;
+        }
+
+        h3 {
+            font-weight: normal;
+            font-size: 13px;
+            color: #42434B;
+            margin-top: 20px;
+            margin-bottom: 3px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+    
+        p {
+            color: #42434B;
+            opacity: 0.4;
+            font-size: 12px;
+            margin-top: 3px;
+            margin-bottom: 0;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+    }
+
+    div:nth-child(2) {
+        width: 100px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        background: linear-gradient(134.73deg, #0043FF -3.41%, #A370F1 100%);
+        clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+        border-radius: 0 10px 12px 0;
+
+        span {
+            font-size: 13px;
+            font-weight: bold;
+            color: #FFFFFF;
+            padding: 10px;
+            z-index: 10;
+        }
+    }
+
+    // colors 
+    &.bitcoin{     
+        div:nth-child(2) { background: linear-gradient(134.73deg, #B53737 -3.41%, #FF9900 100%); }
+    }
+
+    &.trading {
+        div:nth-child(2) { background: linear-gradient(300.76deg, #4BF2E6 -15.61%, #0065FF 94.92%); }
+    }
+
+    &.monero {
+        div:nth-child(2) { background: linear-gradient(300.76deg, #FF6600 -15.61%, #4C4C4C 94.92%); }
+    }
+
+    // image
+    &:nth-child(1) div:nth-child(2)::before {
+        content: " ";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url("../../assets/images/newsFeedSymbol.svg") no-repeat right bottom;
+        z-index: 1;
+        opacity: 0.6;
+    }
+}
+
+@media (min-width: $large-mobile-size) {
+    .newsCard div:nth-child(2) {
+        width: 133px;
+    }
+}

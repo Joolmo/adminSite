@@ -1,7 +1,7 @@
-import React, { useState, ReactElement, Children } from 'react'
+import React, { useState } from 'react'
 import { NavItem } from 'components/navItem'
-import logo from 'images/logo.svg'
-import './header.scss'
+import logo from 'assets/images/logo.svg'
+import './index.scss'
 
 
 export const Header = () => {
@@ -44,16 +44,22 @@ export const Header = () => {
     const accountSection = [
         {
             label: "Notifications",
-            icon :"fa-bell fa-lg"
+            icon:"fa-bell fa-lg"
         },
         {
             label: "Settings",
-            icon :"fa-cog fa-lg"
+            icon: "fa-cog fa-lg"
+        }
+    ]
+    const bottomNav = [
+        {
+            label: "Log Out",
+            icon: "fa-power-off"
         }
     ]
 
     const renderItems = (items: any[]) => {
-        return items.map((item) => {
+        return items.map(item => {
             let { navItems, ...props} = item
             
             return (
@@ -61,6 +67,7 @@ export const Header = () => {
                     {...props}
                     onClick={ navItems ? undefined : (arg: string) => setCurrentPage(arg)}
                     active={currentPage === props.label}
+                    key={props.label}
                 >
                     { navItems && renderItems(navItems) }
                 </NavItem>
@@ -72,18 +79,24 @@ export const Header = () => {
         <header>
             <div id="header">
                 <img src={logo} alt="page logo" />
-                <h1>Navigation</h1>
+                <h1>COINSPACE</h1>
                 <i className="fa fa-bars fa-2x" onClick={() => setNavToggled(prev => !prev)}></i>
             </div>
-
+            <hr />
             <nav className={navIsToggled ? "toggled" : "notToggled"}>
-                <h3>Title</h3>
+                <h3>Quick Access</h3>
                 <ul> {renderItems(titleSection)} </ul>
 
                 <h3>Service</h3>
                 <ul> {renderItems(serviceSection)} </ul>
+                
                 <h3>Account</h3>
                 <ul> {renderItems(accountSection)} </ul>
+                
+                <ul className="bottomNav">
+                    <hr/>
+                    {renderItems(bottomNav)}
+                </ul>
             </nav>
         </header>
     )

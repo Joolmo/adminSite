@@ -1,0 +1,55 @@
+$displayHeight: 385px;
+$marginRight: 50px;
+
+
+.cryptoGraphic {
+  width: calc(100% - 30px);
+  height: $displayHeight + 25px;
+  overflow: hidden;
+  margin: 0 15px;
+
+  .display {
+    width: 100%;
+    display: flex;
+    flex-flow: nowrap row;
+
+    svg:nth-child(1) {
+      width: 100%;
+    }
+
+    svg:nth-child(2) {
+      width: $marginRight;
+    }
+  }
+
+  .content {
+    position: relative;
+    top: -$displayHeight;
+    overflow-x: scroll; 
+    margin-right: $marginRight;
+  }
+
+  .tooltip {
+    background: rgba(69,77,93,.9);
+    border-radius: .1rem;
+    color: #fff;
+    display: block;
+    font-size: 11px;
+    max-width: 320px;
+    padding: .2rem .4rem;
+    position: absolute;
+    top: 0;
+    text-overflow: ellipsis;
+    white-space: pre;
+    visibility: hidden;
+    transition:visibility 0.25s linear 0.25s,opacity 0.20s linear 0.20s;
+  }
+
+  .infoDiv {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    left: calc(100% - 30px);
+    bottom: $displayHeight + 20px;
+  }
+}

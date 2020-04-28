@@ -14,25 +14,12 @@
 
     main {
         grid-area: item-main;
-        background-color: $second-color; // Temporal
-        // height: 1000px; // Testing
+        background-color: $second-color;
     }
 
     #toolbar {
         grid-area: item-toolbar;
         display: none;
-    }
-
-    article .sectionContainer {
-        display: flex;
-        flex-flow: row wrap;
-    }
-
-    article > section:first-child {
-        padding-top: 30px;
-    }
-    section { 
-        padding: 10px;
     }
 }
 
@@ -57,14 +44,5 @@
             position: sticky;
             top: 0;
         }
-
-        article .sectionContainer {
-            margin-left: 30px;
-            margin-right: 30px;
-        }
     }
-}
-
-@media (min-width: $large-desktop-size){
-    #app article .sectionContainer { flex-flow: row nowrap; }
 }

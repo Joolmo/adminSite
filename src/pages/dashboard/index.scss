@@ -1,0 +1,29 @@
+@import "../../assets/styles/globalVariables.scss";
+
+
+#dashboard {
+    & > section:first-child {
+        padding-top: 30px;
+    }
+
+    section { 
+        padding: 10px;
+    }
+
+    .sectionContainer {
+        display: flex;
+        flex-flow: row wrap;
+    }
+}
+
+@media (min-width: $desktop-size) {
+
+    #dashboard .sectionContainer {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+}
+
+@media (min-width: $large-desktop-size){
+    #dashboard .sectionContainer { flex-flow: row nowrap; }
+}

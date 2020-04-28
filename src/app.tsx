@@ -2,31 +2,22 @@ import React from 'react';
 import {
   Header,
   Toolbar,
-  MoneyCardSection,
-  GraphicCard,
-  LastestActivities
 } from 'components'
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Routes } from 'routes';
 import './app.scss';
-import { NewsSection } from 'components/newsSection';
 
 
 export const App = () => {
   return (
     <div id="app">
-      <Header />
-      <Toolbar />
-
-      <main>
-        <article>
-          <MoneyCardSection/>
-          <GraphicCard/>
-          <div className="sectionContainer">
-            <LastestActivities/>
-            <NewsSection/>
-          </div>
-        </article>
-      </main>
-
+      <Router>
+        <Header />
+        <Toolbar />
+        <main>
+          <Routes />
+        </main>
+      </Router>
     </div>
   );
 }

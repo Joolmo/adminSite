@@ -6,6 +6,7 @@ import { MoneyCardSection } from './moneyCardSection'
 import { CryptoGraphic } from './cryptoGraphic'
 import { GraphicCard } from './graphicCard'
 import { NewsCard } from './newsCard'
+import { NewsSection } from './newsSection'
 import { LastestActivities} from './lastestActivities'
 
 export {
@@ -18,4 +19,5 @@ export {
     GraphicCard,
     NewsCard,
     LastestActivities,
+    NewsSection,
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { NavItem } from 'components/navItem'
+import { useHistory } from "react-router-dom";
 import logo from 'assets/images/logo.svg'
 import './index.scss'
 
@@ -7,15 +8,25 @@ import './index.scss'
 export const Header = () => {
     const [navIsToggled, setNavToggled] = useState(false)
     const [currentPage, setCurrentPage] = useState("dashboard") // Temporal, testing
+    const history = useHistory()
     
-    const titleSection = [
+    interface IHeaderSection {
+        label: string,
+        icon?: string,
+        navItems?: IHeaderSection[],
+        link?: string,
+    }
+    
+    const titleSection: IHeaderSection[] = [
         { 
             label: "Dashboard",
             icon: "fa-home fa-lg",
+            link: "/dashboard",
         },
         {
             label: "Exchange",
             icon: "fa-refresh fa-lg",
+            link: "/exchange",
         },
         {
             label: "My Wallet",
@@ -31,7 +42,7 @@ export const Header = () => {
             icon: "fa-bar-chart fa-lg"
         }
     ]
-    const serviceSection = [
+    const serviceSection: IHeaderSection[] = [
         {
             label: "Transactions",
             icon: "fa-university fa-lg"
@@ -41,7 +52,7 @@ export const Header = () => {
             icon: "fa-trophy fa-lg"
         }
     ]
-    const accountSection = [
+    const accountSection: IHeaderSection[] = [
         {
             label: "Notifications",
             icon:"fa-bell fa-lg"
@@ -51,7 +62,7 @@ export const Header = () => {
             icon: "fa-cog fa-lg"
         }
     ]
-    const bottomNav = [
+    const bottomNav: IHeaderSection[] = [
         {
             label: "Log Out",
             icon: "fa-power-off"
@@ -65,7 +76,10 @@ export const Header = () => {
             return (
                 <NavItem
                     {...props}
-                    onClick={ navItems ? undefined : (arg: string) => setCurrentPage(arg)}
+                    onClick={ navItems ? undefined : (arg: string) => {
+                        setCurrentPage(arg)
+                        history.push(props.link)
+                    }}
                     active={currentPage === props.label}
                     key={props.label}
                 >

@@ -8,6 +8,7 @@ import { GraphicCard } from './graphicCard'
 import { NewsCard } from './newsCard'
 import { NewsSection } from './newsSection'
 import { LastestActivities} from './lastestActivities'
+import { CurrencyExchange } from './currencyExchange'
 
 export {
     Header,
@@ -20,4 +21,5 @@ export {
     NewsCard,
     LastestActivities,
     NewsSection,
+    CurrencyExchange,
 }

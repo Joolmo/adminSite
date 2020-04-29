@@ -12,6 +12,7 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.5",
+    "@types/react-select": "^3.0.12",
     "chart.js": "^2.9.3",
     "d3": "^5.15.1",
     "node-sass": "^4.13.1",
@@ -20,6 +21,7 @@
     "react-palette": "^1.0.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-select": "^3.1.0",
     "typescript": "~3.7.2"
   },
   "scripts": {

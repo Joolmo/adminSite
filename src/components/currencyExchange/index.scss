@@ -1,0 +1,101 @@
+.currencyExchange {
+    display: flex;
+    height: 200px;
+    
+    & > div {
+        flex: 1;
+        display: flex;
+        flex-flow: column nowrap;
+        background-color: white;
+        padding: 15px;
+
+        &:nth-child(1) {
+            border-right: 0.7px solid #DFE5F9;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+
+            h2 {
+                margin: 0;
+                font-size: 15px;
+                color: #000A12;
+                font-weight: bold;
+                display: flex;
+    
+                &::before {
+                    content: " ";
+                    display: block;
+                    position: relative;
+                    width: 12px;
+                    height: 12px;
+                    left: -5px;
+                    bottom: -4px;
+                    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+                    background: linear-gradient(122.37deg, #0043FF -6.89%, #A370F1 100%);
+                }
+            }
+
+            .quantityInput {
+                display: flex;
+                flex-flow: column nowrap;
+
+                label {
+                    line-height: 20px;
+                    opacity: 0.4;
+                    font-size: 11px;
+                }
+
+                & > div {
+                    display: flex;
+                    flex-flow: row nowrap;
+
+                    input {
+                        flex: 1;
+                        border-radius: 4px 0px 0px 4px;
+                        border: 1px solid hsl(0,0%,80%);
+                        border-right: none;
+                        padding: 10px;
+                        outline: none;
+                    }
+
+                    .quantitySelector {
+                        width: 110px;
+
+                        & > div {
+                            border-top-left-radius: 0;
+                            border-bottom-left-radius: 0;
+                        }
+                    }
+                }
+            }
+
+            .currencyInput {
+                label {
+                    line-height: 20px;
+                    opacity: 0.4;
+                    font-size: 11px;
+                }
+            }
+        }
+
+        &:nth-child(2) {
+            padding: 15px 30px;
+
+            & > div {
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-between;
+                padding: 10px;
+                border-bottom: 0.7px solid #DFE5F9;
+
+                span {
+                    font-size: 15px;
+                
+                    &:first-child {
+                        opacity: 0.4;
+                    }
+                }
+            }
+        }
+    }
+}

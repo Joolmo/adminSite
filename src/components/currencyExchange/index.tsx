@@ -1,38 +1,67 @@
 import React, { useState, useEffect } from 'react'
-import { Card } from 'containers'
 import Select from 'react-select'
-import AsyncSelect from 'react-select/async';
+import { Card } from 'containers'
+import { AllCoinsService, HistoricalCoinService } from 'services';
+import { ICoin, TimeDividers } from 'interfaces';
 import './index.scss'
-import { AllCoinsService } from 'services';
-import { ICoin } from 'interfaces';
+import { ExchangeService } from 'services/exchangeService';
 
-
-const options = [
-    { value: 'chocolate', label: 'EUR' },
-    { value: 'strawberry', label: 'USD' },
-    { value: 'vanilla', label: 'JPY' }
-  ]
 
 export const CurrencyExchange = () => {
-    const [coins, setCoins] = useState<ICoin[]>([])
-    const [options, setOptions] = useState<{label: string, value: string}[]>([])
-    const [ results, setResults ] = useState<{coin: ICoin, value: number}[]>([
-        {coin: {
-            name: "Bitcoin",
-            crypto: "BTC",
-            image: ""
-        }, value: 7080}
-    ])
+    const [ coins, setCoins ] = useState<{coin: ICoin, valueEUR: number | undefined}[]>([])
+    const [ options, setOptions ] = useState<{label: string, value: ICoin}[]>([])
+    const [ results, setResults ] = useState<{coin: ICoin, value: number}[]>([])
+    const [ toCoins, setToCoins ] = useState<ICoin[]>()
+    const [ baseCoin, setBaseCoin ] = useState<ICoin>()
+    const [ quantity, setQuantity ] = useState(0)
+
+    const updateCoinValues = async () => {
+        const unvaluedCoinsIndexes: number[] = []
+        const unvaluedCoins = coins.filter(({coin, valueEUR}, index) => {
+            const isNotValued = (toCoins?.includes(coin) || baseCoin == coin) && !valueEUR
+            if(isNotValued) { unvaluedCoinsIndexes.push(index) } 
+            return isNotValued
+        })
+        
+        if(unvaluedCoinsIndexes.length === 0) { return }
+
+        await ExchangeService({
+            to: unvaluedCoins.map(unvalued => unvalued.coin.crypto),
+            from: "EUR"
+        }).then((response) => {
+            setCoins(prevVal => {
+                const newVal = prevVal
+                unvaluedCoinsIndexes.forEach((unvaluedIndex, index) => newVal[unvaluedIndex].valueEUR = response.to[index].value)
+                return newVal
+            })
+        }).catch(error => { /* Handle error */ })
+    }
+
+    const updateResults = async () => {
+        await updateCoinValues()
+        setResults(toCoins ? toCoins.map(toCoin => ({
+            coin: toCoin,
+            value: ((coins.find(coin => coin.coin.crypto === toCoin?.crypto)?.valueEUR as number)
+            / (coins.find(coin => coin.coin.crypto === baseCoin?.crypto)?.valueEUR as number)) * quantity
+        })) : [])
+    }
 
     useEffect(() => {
         AllCoinsService({}).then(response => {
-            setCoins(response)
+            setCoins(response.map(coin => ({
+                coin,
+                valueEUR: undefined
+            })))
             setOptions(response.map(coin => ({
-                value: coin.crypto,
+                value: coin,
                 label: coin.crypto,
             })))
         })
     }, [])
+
+    useEffect(() => {
+      updateResults()
+    }, [baseCoin, toCoins, quantity])
 
     return (
         <section>
@@ -42,19 +71,31 @@ export const CurrencyExchange = () => {
                     <div className="quantityInput">
                         <label>Quantity:</label>
                         <div>
-                            <input type="text" pattern="[0-9]*"/>
-                            <Select className="quantitySelector" placeholder="Coin" options={options}/>
+                            <input type="text" pattern="[0-9]*" onChange={(evt) => setQuantity(Number(evt.target.value))}/>
+                            <Select className="quantitySelector"
+                                isSearchable
+                                placeholder="Coin"
+                                options={options}
+                                onChange={({value}: any) => setBaseCoin(value)}
+                            />
                         </div>
                     </div>
                     <div className="currencyInput">
                         <label>To:</label>
-                        <Select isSearchable isMulti options={options} />
+                        <Select 
+                            isSearchable 
+                            isMulti
+                            options={options}
+                            onChange={(selections) => {
+                                setToCoins((selections as any[])?.map(item => item.value))
+                            }}
+                        />
                     </div>
                 </div>
                 <div>
-                    { results.map(({coin, value}) => <div>
+                    { results.map(({coin, value}) => <div key={coin.crypto}>
                         <span>{coin.crypto}/{coin.name}</span>
-                        <span>{value}</span>
+                        <span>{value.toFixed(2)}</span>
                     </div>) }
                 </div>
             </Card>

@@ -29,6 +29,11 @@ export interface ICoin {
     image: string
 }
 
+export interface ICoinExchange {
+    from: string,
+    to: {coin: string, value: number}[]
+}
+
 export enum TimeDividers{
     max = 1,
     month, 

@@ -80,6 +80,7 @@
 
         &:nth-child(2) {
             padding: 15px 30px;
+            overflow-y: overlay;
 
             & > div {
                 display: flex;
@@ -96,6 +97,32 @@
                     }
                 }
             }
+
+            // Scrollbar with Hover Transition Effect
+            &::-webkit-scrollbar {
+                width: 14px;
+            }
+            &::-webkit-scrollbar-thumb {
+                background-clip: content-box;
+                border: 4px solid transparent;
+                border-radius: 7px;
+                background-color: rgba($color: #000000, $alpha: 0.3);
+            }
+            &::-webkit-scrollbar-button {
+                display: none;
+            }
+            &::-webkit-scrollbar-corner {
+                background-color: transparent;
+            }
+          /*  & {
+                overflow: auto;
+                color: #00000000;
+                transition: color 0.3s;
+
+                &:hover {
+                    color: #666666FF;
+                }
+            }*/
         }
     }
 }

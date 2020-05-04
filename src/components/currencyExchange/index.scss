@@ -1,6 +1,9 @@
+@import "../../assets/styles/globalVariables.scss";
+
+
 .currencyExchange {
     display: flex;
-    height: 200px;
+    flex-flow: column nowrap;
     
     & > div {
         flex: 1;
@@ -10,10 +13,12 @@
         padding: 15px;
 
         &:nth-child(1) {
-            border-right: 0.7px solid #DFE5F9;
+            border-bottom: 0.7px solid #DFE5F9;
+            border-right: 0;
             display: flex;
             flex-flow: column nowrap;
             justify-content: space-between;
+            min-height: 175px;
 
             h2 {
                 margin: 0;
@@ -56,6 +61,7 @@
                         border-right: none;
                         padding: 10px;
                         outline: none;
+                        min-width: 0px;
                     }
 
                     .quantitySelector {
@@ -81,6 +87,8 @@
         &:nth-child(2) {
             padding: 15px 30px;
             overflow-y: overlay;
+            max-height: 175px;
+            min-height: 175px;
 
             & > div {
                 display: flex;
@@ -123,6 +131,17 @@
                     color: #666666FF;
                 }
             }*/
+        }
+    }
+}
+
+@media (min-width: $large-desktop-size) {
+    .currencyExchange {    
+        flex-flow: row nowrap;
+
+        & > div:nth-child(1) {
+            border-right: 0.7px solid #DFE5F9;
+            border-bottom: 0;
         }
     }
 }

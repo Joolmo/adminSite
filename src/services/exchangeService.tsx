@@ -7,9 +7,7 @@ interface IProps {
     to: string[]
 }
 
-export const ExchangeService = async ({to, from}: IProps): Promise<ICoinExchange> => {
-    console.log(to)
-    
+export const ExchangeService = async ({to, from}: IProps): Promise<ICoinExchange> => {    
     const parseResponse = (res: any): ICoinExchange => {
         return {
             from: from,

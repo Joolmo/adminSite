@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import Select from 'react-select'
+import React, { useState, useEffect } from 'react';
+import { OptionsType } from 'react-select';
+import AsyncSelect from 'react-select/async';
 import { Card } from 'containers'
-import { AllCoinsService, HistoricalCoinService } from 'services';
-import { ICoin, TimeDividers } from 'interfaces';
+import { AllCoinsService } from 'services';
+import { ICoin } from 'interfaces';
 import './index.scss'
 import { ExchangeService } from 'services/exchangeService';
 
@@ -18,7 +19,7 @@ export const CurrencyExchange = () => {
     const updateCoinValues = async () => {
         const unvaluedCoinsIndexes: number[] = []
         const unvaluedCoins = coins.filter(({coin, valueEUR}, index) => {
-            const isNotValued = (toCoins?.includes(coin) || baseCoin == coin) && !valueEUR
+            const isNotValued = (toCoins?.includes(coin) || baseCoin === coin) && !valueEUR
             if(isNotValued) { unvaluedCoinsIndexes.push(index) } 
             return isNotValued
         })
@@ -44,6 +45,10 @@ export const CurrencyExchange = () => {
             value: ((coins.find(coin => coin.coin.crypto === toCoin?.crypto)?.valueEUR as number)
             / (coins.find(coin => coin.coin.crypto === baseCoin?.crypto)?.valueEUR as number)) * quantity
         })) : [])
+    }
+
+    const coinLoadOptions = (input: string, callback: (options: OptionsType<any>) => void) => {
+        callback(options.filter(option => option.label.toLocaleLowerCase().includes(input.toLocaleLowerCase())))
     }
 
     useEffect(() => {
@@ -72,32 +77,34 @@ export const CurrencyExchange = () => {
                         <label>Quantity:</label>
                         <div>
                             <input type="text" pattern="[0-9]*" onChange={(evt) => setQuantity(Number(evt.target.value))}/>
-                            <Select className="quantitySelector"
-                                isSearchable
+                            <AsyncSelect
+                                className="quantitySelector"
+                                cacheOptions
                                 placeholder="Coin"
-                                options={options}
+                                loadOptions={coinLoadOptions}
                                 onChange={({value}: any) => setBaseCoin(value)}
                             />
                         </div>
                     </div>
                     <div className="currencyInput">
                         <label>To:</label>
-                        <Select 
-                            isSearchable 
+                        <AsyncSelect 
                             isMulti
-                            options={options}
+                            cacheOptions
+                            placeholder="Coin"
+                            loadOptions={coinLoadOptions}
                             onChange={(selections) => {
                                 setToCoins((selections as any[])?.map(item => item.value))
                             }}
                         />
                     </div>
                 </div>
-                <div>
+              <div>
                     { results.map(({coin, value}) => <div key={coin.crypto}>
                         <span>{coin.crypto}/{coin.name}</span>
                         <span>{value.toFixed(2)}</span>
                     </div>) }
-                </div>
+              </div>
             </Card>
         </section>
     )
